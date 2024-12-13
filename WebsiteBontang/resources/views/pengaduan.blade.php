@@ -15,6 +15,54 @@
             console.error(error);
           });
       });
+
+      // Open file dialog when clicking "Cari File"
+      function openFileDialog() {
+        document.getElementById("file_input").click();
+      }
+
+      // Handle file upload and display the uploaded files as icons and previews
+      function handleFileUpload(event) {
+        const files = event.target.files;
+        const fileListContainer = document.getElementById("fileListContainer");
+
+        // Clear any existing file icons
+        Array.from(files).forEach(file => {
+          const fileIcon = document.createElement("div");
+          fileIcon.classList.add("relative", "flex", "items-center", "space-x-2", "mb-4", "mr-4");
+
+          // Create file preview based on file type
+          const fileImg = document.createElement("img");
+          fileImg.classList.add("w-16", "h-16", "object-cover", "rounded-lg");
+
+          const deleteBtn = document.createElement("button");
+          deleteBtn.innerHTML = '<i class="fas fa-times text-red-500"></i>';  // "X" icon for delete
+          deleteBtn.classList.add("absolute", "top-0", "right-0", "text-2xl", "hover:text-red-700");
+          deleteBtn.onclick = function () {
+            fileListContainer.removeChild(fileIcon);
+          };
+
+          // Preview logic for images or document icons
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            // Check if file is an image
+            if (file.type.startsWith("image/")) {
+              fileImg.src = e.target.result;
+            } else {
+              // Use a default icon for non-image files
+              fileImg.src = "https://storage.googleapis.com/a1aa/image/sXlbPyxfxZSvW671DeuTpCfPE1bu6DlU1df40fLlLZqJtZRfE.jpg";  // Default file icon
+            }
+          };
+
+          // Read the file as a data URL
+          reader.readAsDataURL(file);
+
+          fileIcon.appendChild(fileImg);
+          fileIcon.appendChild(deleteBtn);
+
+          fileListContainer.appendChild(fileIcon);
+        });
+      }
     </script>
     <style>
       /* Sticky header */
@@ -39,7 +87,7 @@
   </head>
   <body class="bg-blue-100">
     <header class="bg-white p-4 flex justify-between items-center">
-      <img alt="Ini Nah! logo" class="h-12" src="https://storage.googleapis.com/a1aa/image/ajf5gpXVTY2JBqyp2xTqS9coJAhK8FqIW4YdDGOcnpL0mF9JA.jpg" width="100"/>
+      <img alt="Ini Nah! logo" class="h-12" src="{{ asset('images/logo.png') }}" width="auto" height="40"/>
       <div class="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center">
         V
       </div>
@@ -54,14 +102,14 @@
           <div class="border-2 border-dashed border-gray-300 p-4 text-center rounded-xl">
             <i class="fas fa-upload text-2xl text-gray-400 mb-2"></i>
             <p>Seret dan Taruh Sini</p>
-            <p>atau <a class="text-blue-500" href="#">Cari File</a></p>
+            <p>atau <a class="text-blue-500 cursor-pointer" onclick="openFileDialog()">Cari File</a></p>
+            <!-- File input element (hidden, triggered by Cari File link) -->
+            <input type="file" id="file_input" class="mt-2 hidden" name="file_upload" multiple onchange="handleFileUpload(event)"/>
           </div>
         </div>
 
-        <div class="flex space-x-2 mb-4">
-          <img alt="File icon" class="w-10 h-10" src="https://storage.googleapis.com/a1aa/image/sXlbPyxfxZSvW671DeuTpCfPE1bu6DlU1df40fLlLZqJtZRfE.jpg" width="40"/>
-          <img alt="File icon" class="w-10 h-10" src="https://storage.googleapis.com/a1aa/image/sXlbPyxfxZSvW671DeuTpCfPE1bu6DlU1df40fLlLZqJtZRfE.jpg" width="40"/>
-          <img alt="File icon" class="w-10 h-10" src="https://storage.googleapis.com/a1aa/image/sXlbPyxfxZSvW671DeuTpCfPE1bu6DlU1df40fLlLZqJtZRfE.jpg" width="40"/>
+        <div id="fileListContainer" class="flex flex-wrap mb-4">
+          <!-- Uploaded files will be shown here -->
         </div>
 
         <div class="mb-4">
