@@ -8,3 +8,9 @@ Route::get('/', function () {
 Route::get('/daftar', function () {
     return view('register');
 });
+Route::get('/login', action: function () {
+    return view('login');
+});
+Route::get('/pengaduan', action: function () {
+    return view('pengaduan');
+});
