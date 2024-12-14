@@ -14,3 +14,6 @@ Route::get('/login', action: function () {
 Route::get('/pengaduan', action: function () {
     return view('pengaduan');
 });
+Route::get('/beranda', action: function () {
+    return view('beranda');
+});

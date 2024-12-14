@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
@@ -24,9 +25,34 @@
       // Handle file upload and display the uploaded files as icons and previews
       function handleFileUpload(event) {
         const files = event.target.files;
+        addFilesToContainer(files);
+      }
+
+      // Handle drag-and-drop upload
+      function handleDragOver(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.currentTarget.classList.add("border-blue-500");
+      }
+
+      function handleDragLeave(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.currentTarget.classList.remove("border-blue-500");
+      }
+
+      function handleDrop(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.currentTarget.classList.remove("border-blue-500");
+
+        const files = event.dataTransfer.files;
+        addFilesToContainer(files);
+      }
+
+      function addFilesToContainer(files) {
         const fileListContainer = document.getElementById("fileListContainer");
 
-        // Clear any existing file icons
         Array.from(files).forEach(file => {
           const fileIcon = document.createElement("div");
           fileIcon.classList.add("relative", "flex", "items-center", "space-x-2", "mb-4", "mr-4");
@@ -64,48 +90,21 @@
         });
       }
     </script>
-    <style>
-      /* Sticky header */
-      header {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
-      }
 
-      /* Make footer sticky */
-      html, body {
-        height: 100%;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-      }
-
-      main {
-        flex: 1; /* Push footer to the bottom */
-      }
-
-      /* Increase logo size */
-      header img {
-        height: 80px;  /* You can adjust this value for the logo size */
-      }
-    </style>
   </head>
   <body class="bg-blue-100">
-    <header class="bg-white p-4 flex justify-between items-center">
-      <img alt="Ini Nah! logo" class="h-16" src="{{ asset('images/logo.png') }}" width="auto" height="80px"/>
-      <div class="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center">
-        V
-      </div>
-    </header>
+    <x-header></x-header>
 
     <main class="flex flex-col items-center mt-8 mb-8">
       <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-2xl">
         <h1 class="text-center text-xl font-bold mb-4">LAYANAN PENGADUAN</h1>
 
         <div class="mb-4">
-          <label class="block text-gray-700 font-bold mb-2">Upload Files</label>
-          <div class="border-2 border-dashed border-gray-300 p-4 text-center rounded-xl">
+          <label class="block text-gray-700 font-bold mb-2">Upload File</label>
+          <div class="border-2 border-dashed border-gray-300 p-4 text-center rounded-xl"
+               ondragover="handleDragOver(event)"
+               ondragleave="handleDragLeave(event)"
+               ondrop="handleDrop(event)">
             <i class="fas fa-upload text-2xl text-gray-400 mb-2"></i>
             <p>Seret dan Taruh Sini</p>
             <p>atau <a class="text-blue-500 cursor-pointer" onclick="openFileDialog()">Cari File</a></p>
@@ -138,19 +137,7 @@
       </div>
     </main>
 
-    <footer class="bg-sky-500 text-white p-4 flex justify-between items-center">
-      <div class="flex items-center space-x-2">
-        <img alt="Kota Bontang logo" class="h-12" src="{{ asset('images/logo_bontang.png') }}" width="50"/>
-        <p class="text-center text-white font-bold">Kota Bontang</p>
-      </div>
-      <div class="flex items-center justify-center w-fullpy-2 mt-2">
-        <div class="flex items-center space-x-2 text-black">
-          <img alt="CC Logo" src="https://cdn-icons-png.flaticon.com/128/9134/9134737.png" class="h-6 w-6"/>
-          <p class="text-center">Muhamad Vicky Oktafrian</p>
-        </div>
-      </div>
-    </footer>
-    
-    
+<x-footer></x-footer>
+
   </body>
 </html>
