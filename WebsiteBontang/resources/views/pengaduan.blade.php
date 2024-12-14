@@ -17,6 +17,9 @@
           });
       });
 
+      // File type validation
+      const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp", "video/mp4", "video/webm", "video/ogg"];
+
       // Open file dialog when clicking "Cari File"
       function openFileDialog() {
         document.getElementById("file_input").click();
@@ -25,7 +28,7 @@
       // Handle file upload and display the uploaded files as icons and previews
       function handleFileUpload(event) {
         const files = event.target.files;
-        addFilesToContainer(files);
+        validateAndAddFiles(files);
       }
 
       // Handle drag-and-drop upload
@@ -47,13 +50,19 @@
         event.currentTarget.classList.remove("border-blue-500");
 
         const files = event.dataTransfer.files;
-        addFilesToContainer(files);
+        validateAndAddFiles(files);
       }
 
-      function addFilesToContainer(files) {
+      // Validate file types and add files to container
+      function validateAndAddFiles(files) {
         const fileListContainer = document.getElementById("fileListContainer");
 
         Array.from(files).forEach(file => {
+          if (!allowedTypes.includes(file.type)) {
+            alert(`${file.name} tidak didukung. Hanya file gambar dan video yang diperbolehkan.`);
+            return;
+          }
+
           const fileIcon = document.createElement("div");
           fileIcon.classList.add("relative", "flex", "items-center", "space-x-2", "mb-4", "mr-4");
 
@@ -68,15 +77,13 @@
             fileListContainer.removeChild(fileIcon);
           };
 
-          // Preview logic for images or document icons
+          // Preview logic for images and videos
           const reader = new FileReader();
           reader.onload = function(e) {
-            // Check if file is an image
             if (file.type.startsWith("image/")) {
               fileImg.src = e.target.result;
-            } else {
-              // Use a default icon for non-image files
-              fileImg.src = "https://storage.googleapis.com/a1aa/image/sXlbPyxfxZSvW671DeuTpCfPE1bu6DlU1df40fLlLZqJtZRfE.jpg";  // Default file icon
+            } else if (file.type.startsWith("video/")) {
+              fileImg.src = "https://storage.googleapis.com/a1aa/image/video-placeholder.png"; // Placeholder for video files
             }
           };
 
@@ -90,10 +97,9 @@
         });
       }
     </script>
-
   </head>
   <body class="bg-blue-100">
-    <x-header></x-header>
+    <x-header_blm_login></x-header_blm_login>
 
     <main class="flex flex-col items-center mt-8 mb-8">
       <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-2xl">
@@ -137,7 +143,6 @@
       </div>
     </main>
 
-<x-footer></x-footer>
-
+    <x-footer></x-footer>
   </body>
 </html>
