@@ -69,18 +69,23 @@
                 placeholder="Masukkan Password" type="password" id="password" />
               <i class="fas fa-eye-slash absolute right-3 top-4 text-gray-500 cursor-pointer" 
                  onclick="togglePassword('password')" id="password-icon"></i>
+                 
             </div>
-
+            <div class="flex items-center h-5">
+              <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
+              <label for="remember" class="ms-2 text-sm font-medium text-black dark:text-black-300">Remember me</label>
+          </div>
             <div class="flex justify-center">
               <button class="w-1/3 bg-yellow-400 text-white p-3 rounded-xl font-bold" type="submit">
                 Masuk
               </button>
             </div>
+            
           </form>
       </div>
 
       <p class="mt-4">
-        Apakah kamu tidak punya akun? <a class="text-blue-500" href="#">Daftar</a>
+        Apakah kamu tidak punya akun? <a class="text-blue-500" href="{{ '/daftar' }}">Daftar</a>
       </p>
       <p class="mt-2">Atau masuk dengan</p>
       <div class="flex flex-col space-y-2 mt-4 w-full max-w-sm">

@@ -101,7 +101,11 @@
   <body class="bg-blue-100">
     <x-header_blm_login></x-header_blm_login>
 
-    <main class="flex flex-col items-center mt-8 mb-8">
+    <main class="flex flex-col items-center  mb-8 w-full">
+        <nav class="text-gray-600 text-sm mb-4 left-80%">
+              <a href="{{ '/' }}" class="hover:underline">Beranda</a> &gt;
+              <span class="font-semibold">Pengaduan</span>
+          </nav>
       <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-2xl">
         <h1 class="text-center text-xl font-bold mb-4">LAYANAN PENGADUAN</h1>
 
@@ -133,7 +137,7 @@
             <option value="Lainnya">Lainnya</option>
           </select>
         </div>
-        <div class="mb-4">
+        <div class="mb-4 z-0">
           <textarea id="editor" name="editor"></textarea>
         </div>
 

@@ -87,7 +87,7 @@
       </div>
 
       <p class="mt-4">
-        Apakah kamu sudah punya akun? <a class="text-blue-500" href="#">Login</a>
+        Apakah kamu sudah punya akun? <a class="text-blue-500" href="{{ '/login' }}">Login</a>
       </p>      
       <p class="mt-2">Atau masuk dengan</p>
       <div class="flex flex-col space-y-2 mt-4 w-full max-w-sm">
