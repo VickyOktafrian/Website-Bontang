@@ -17,3 +17,9 @@ Route::get('/pengaduan', action: function () {
 Route::get('/wisata', action: function () {
     return view('wisata');
 });
+Route::get('/laman-berita', action: function () {
+    return view('laman-berita');
+});
+Route::get('/berita', action: function () {
+    return view('berita');
+});

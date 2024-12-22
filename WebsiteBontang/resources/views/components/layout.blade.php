@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Beranda</title>
     @vite('resources/css/app.css')
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.0/dist/cdn.min.js" defer></script>
@@ -18,9 +19,9 @@
 <body class="h-full bg-gray-100">
     </nav>
         {{-- <x-header_sdh_login></x-header_sdh_login> --}}
-        <x-header_blm_login></x-header_blm_login>
+        <x-header_blm_login class="fixed"></x-header_blm_login>
     <nav>
-    <main>
+    <main class="mt-28">
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             {{ $slot }}
         </div>

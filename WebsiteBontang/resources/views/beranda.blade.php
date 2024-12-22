@@ -166,7 +166,7 @@
         <div class="col-span-full flex justify-center">
             <a
                 class="inline-block rounded-xl border border-sky-400 px-12 py-3 text-sm font-medium text-sky-400 hover:bg-sky-400 hover:text-white focus:outline-none focus:ring active:bg-sky-300"
-                href="#"
+                href="{{ '/laman-berita' }}"
             >
                 Info Lainnya
             </a>

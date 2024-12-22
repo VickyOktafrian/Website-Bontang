@@ -1,15 +1,5 @@
 <style>
 
-    html, body {
-      height: 100%;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-    }
-
-    main {
-      flex: 1;
-    }
 
   </style>
 <footer class="bg-sky-500 text-white p-4 flex justify-between items-center">
