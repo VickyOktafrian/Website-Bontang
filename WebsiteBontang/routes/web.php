@@ -23,3 +23,6 @@ Route::get('/laman-berita', action: function () {
 Route::get('/berita', action: function () {
     return view('berita');
 });
+Route::get('/wisata', action: function () {
+    return view('wisata');
+});
