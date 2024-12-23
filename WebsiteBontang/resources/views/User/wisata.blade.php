@@ -1,6 +1,6 @@
 <x-layout>
 
-
+    <x-slot:title>{{ $title }}</x-slot:title>
 <!-- Container -->
 <div class="relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl xl:max-w-6xl">
 

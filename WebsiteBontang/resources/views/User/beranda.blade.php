@@ -1,4 +1,5 @@
 <x-layout>
+  <x-slot:title>{{ $title }}</x-slot:title>
     <div class="flex flex-col md:flex-row">
       <!-- Carousel Section -->
       <div id="indicators-carousel" class="relative w-full md:w-2/3" data-carousel="static">

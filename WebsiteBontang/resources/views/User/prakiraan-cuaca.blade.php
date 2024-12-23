@@ -1,4 +1,5 @@
 <x-layout>
+    <x-slot:title>{{ $title }}</x-slot:title>
     <div class="container mx-auto p-4">
         <h1 class="text-2xl font-bold mb-4">Bontang, Kalimantan Timur</h1>
         <p>Bontang, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>

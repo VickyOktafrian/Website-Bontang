@@ -1,5 +1,5 @@
 <x-layout>
-
+  <x-slot:title>{{ $title }}</x-slot:title>
  <!-- =========={ MAIN }==========  -->
  <main id="content">
    <!-- advertisement -->

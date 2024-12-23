@@ -1,4 +1,5 @@
 <x-layout>
+    <x-slot:title>{{ $title }}</x-slot:title>
     <div class="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16 relative">
         <div class="grid grid-cols-1 sm:grid-cols-12 gap-5">
     
