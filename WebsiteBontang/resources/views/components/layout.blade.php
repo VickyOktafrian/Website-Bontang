@@ -13,22 +13,32 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.0/dist/cdn.min.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/38.1.0/classic/ckeditor.js"></script>
 </head>
 <body class="h-full bg-gray-100">
-    </nav>
-        {{-- <x-header_sdh_login></x-header_sdh_login> --}}
-        <x-header_blm_login class="fixed"></x-header_blm_login>
-    <nav>
+
+    {{-- Header section --}}
+    <x-header_blm_login class="fixed"></x-header_blm_login>
+    
     <main class="mt-28">
+
+        @if(request()->route()->getName() !== 'beranda') 
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <x-breadcrumb :title="$title" />
+        </div>
+        @endif
+
+        <!-- Main Content -->
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             {{ $slot }}
         </div>
     </main>
+
+    {{-- Footer section --}}
     <footer>
         <x-footer></x-footer>
     </footer>
+
 </body>
 </html>

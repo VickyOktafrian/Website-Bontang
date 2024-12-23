@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Layanan Pengaduan</title>
-    <link rel="shortcut icon" href="{{ asset('images/icon.png') }}" type="image/x-icon">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+
     <script>
       // Initialize CKEditor
       document.addEventListener("DOMContentLoaded", function () {
@@ -98,56 +89,49 @@
         });
       }
     </script>
-  </head>
-  <body class="bg-blue-100">
-    <x-header_blm_login></x-header_blm_login>
+<x-layout>
+  <x-slot:title>{{ $title }}</x-slot:title>
+        
+  <div class="flex justify-center items-start min-h-screen bg-gray-100 pt-8">
+    <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-2xl">
+      <h1 class="text-center text-xl font-bold mb-4">LAYANAN PENGADUAN</h1>
 
-    <main class="flex flex-col items-center  mb-8 w-full">
-        <nav class="text-gray-600 text-sm mb-4 left-80%">
-              <a href="{{ '/' }}" class="hover:underline">Beranda</a> &gt;
-              <span class="font-semibold">Pengaduan</span>
-          </nav>
-      <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-2xl">
-        <h1 class="text-center text-xl font-bold mb-4">LAYANAN PENGADUAN</h1>
-
-        <div class="mb-4">
-          <label class="block text-gray-700 font-bold mb-2">Upload File</label>
-          <div class="border-2 border-dashed border-gray-300 p-4 text-center rounded-xl"
-               ondragover="handleDragOver(event)"
-               ondragleave="handleDragLeave(event)"
-               ondrop="handleDrop(event)">
-            <i class="fas fa-upload text-2xl text-gray-400 mb-2"></i>
-            <p>Seret dan Taruh Sini</p>
-            <p>atau <a class="text-blue-500 cursor-pointer" onclick="openFileDialog()">Cari File</a></p>
-            <!-- File input element (hidden, triggered by Cari File link) -->
-            <input type="file" id="file_input" class="mt-2 hidden" name="file_upload" multiple onchange="handleFileUpload(event)"/>
-          </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 font-bold mb-2">Upload File</label>
+        <div class="border-2 border-dashed border-gray-300 p-4 text-center rounded-xl"
+             ondragover="handleDragOver(event)"
+             ondragleave="handleDragLeave(event)"
+             ondrop="handleDrop(event)">
+          <i class="fas fa-upload text-2xl text-gray-400 mb-2"></i>
+          <p>Seret dan Taruh Sini</p>
+          <p>atau <a class="text-blue-500 cursor-pointer" onclick="openFileDialog()">Cari File</a></p>
+          <!-- File input element (hidden, triggered by Cari File link) -->
+          <input type="file" id="file_input" class="mt-2 hidden" name="file_upload" multiple onchange="handleFileUpload(event)"/>
         </div>
-
-        <div id="fileListContainer" class="flex flex-wrap mb-4">
-          <!-- Uploaded files will be shown here -->
-        </div>
-
-        <div class="mb-4">
-          <label class="block text-gray-700 font-bold mb-2">Keterangan</label>
-          <select class="w-full border border-gray-300 p-2 rounded-xl">
-            <option value="" disabled selected>Pilih Keterangan</option>
-            <option value="Pengaduan Teknis">Pengaduan Teknis</option>
-            <option value="Pengaduan Administratif">Pengaduan Administratif</option>
-            <option value="Pengaduan Umum">Pengaduan Umum</option>
-            <option value="Lainnya">Lainnya</option>
-          </select>
-        </div>
-        <div class="mb-4 z-0">
-          <textarea id="editor" name="editor"></textarea>
-        </div>
-
-        <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl">
-          Submit
-        </button>
       </div>
-    </main>
 
-    <x-footer></x-footer>
-  </body>
-</html>
+      <div id="fileListContainer" class="flex flex-wrap mb-4">
+        <!-- Uploaded files will be shown here -->
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 font-bold mb-2">Keterangan</label>
+        <select class="w-full border border-gray-300 p-2 rounded-xl">
+          <option value="" disabled selected>Pilih Keterangan</option>
+          <option value="Pengaduan Teknis">Pengaduan Teknis</option>
+          <option value="Pengaduan Administratif">Pengaduan Administratif</option>
+          <option value="Pengaduan Umum">Pengaduan Umum</option>
+          <option value="Lainnya">Lainnya</option>
+        </select>
+      </div>
+      <div class="mb-4 z-0">
+        <textarea id="editor" name="editor"></textarea>
+      </div>
+
+      <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl">
+        Submit
+      </button>
+    </div>
+  </div>
+</x-layout>
+

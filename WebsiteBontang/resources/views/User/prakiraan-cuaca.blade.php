@@ -1,6 +1,8 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="container mx-auto p-4">
+
+
         <h1 class="text-2xl font-bold mb-4">Bontang, Kalimantan Timur</h1>
         <p>Bontang, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
 
@@ -48,7 +50,7 @@
                 <div class="text-2xl font-bold">26°C</div>
                 <div class="text-lg">Cerah</div>
                 <div class="text-sm">Pagi</div>
-                <div class="text-sm mt-2 " id="time"></div>
+                <div class="text-sm mt-2" id="time"></div>
             </div>
             @for ($i = 1; $i <= 3; $i++)
                 <div class="p-4 rounded-lg shadow-md text-center">
