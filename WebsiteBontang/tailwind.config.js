@@ -20,5 +20,6 @@ export default {
     plugins: [
         require('flowbite-typography'),
         require('flowbite/plugin')
+        // require('daisyui'),
     ],
 };

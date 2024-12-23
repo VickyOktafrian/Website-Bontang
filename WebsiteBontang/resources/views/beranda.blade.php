@@ -50,15 +50,15 @@
   
       <!-- Card Section -->
       <div class="card bg-base-100 h-[400px] md:h-[400px] shadow-xl rounded-xl ml-10 md:ml-10 mt-5 md:mt-0 relative overflow-hidden ">
-        <a href="">
+        <a href="{{ '/prakiraan-cuaca' }}">
           <figure class="px-10 pt-10">
             <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
               alt="Prakiraan Cuaca" class="rounded-xl h-[250px] w-[300px]" />
           </figure>
         </a>
         <div class="card-body items-center text-center mt-5 px-10">
-          <p>Bontang, 26-10-2024</p>
-        </div>
+          <p>Bontang, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
+      </div>
       </div>
     </div>
 
@@ -184,9 +184,9 @@
         <div class="col-span-full flex justify-center mt-8">
             <a
                 class="inline-block rounded-xl border border-sky-600 px-12 py-3 text-sm font-medium text-sky-600 hover:bg-sky-600 hover:text-white focus:outline-none focus:ring active:bg-sky-400"
-                href="#"
+                href="{{ '/portal-belanja' }}"
             >
-                Info Lainnya
+                Jelajahi Lainnya
             </a>
         </div>
     </div>
@@ -198,23 +198,23 @@
           <div class="col-span-3">
             <div class="bg-white rounded-full flex justify-between items-center p-4 mb-4 shadow-md">
               <span class="text-sky-800 ">1. Administrasi Kependudukan</span>
-              <a href="https://disdukcapil.bontangkota.go.id/index.php/layanan-online"><button class="bg-yellow-400 text-white rounded-full px-6 py-2">Kunjungi Laman</button></a>
+              <a href="https://disdukcapil.bontangkota.go.id/index.php/layanan-online" target="blank"><button class="bg-yellow-400 text-white rounded-full px-6 py-2">Kunjungi Laman</button></a>
             </div>
             <div class="bg-white rounded-full flex justify-between items-center p-4 mb-4 shadow-md">
               <span class="text-sky-800">2. Polres Bontang</span>
-              <a href="https://polresbontang.com/"><button class="bg-yellow-400 text-white rounded-full px-6 py-2">Kunjungi Laman</button></a>
+              <a href="https://polresbontang.com/" target="blank"><button class="bg-yellow-400 text-white rounded-full px-6 py-2">Kunjungi Laman</button></a>
             </div>
             <div class="bg-white rounded-full flex justify-between items-center p-4 mb-4 shadow-md">
               <span class="text-sky-800">3. Pemadam Kebakaran</span>
-              <a href="https://sippn.menpan.go.id/instansi/178429/pemerintah-kota-bontang/dinas-pemadam-kebakaran-dan-penyelamatan"><button class="bg-yellow-400 text-white rounded-full px-6 py-2">Kunjungi Laman</button></a>
+              <a href="https://sippn.menpan.go.id/instansi/178429/pemerintah-kota-bontang/dinas-pemadam-kebakaran-dan-penyelamatan" target="blank"><button class="bg-yellow-400 text-white rounded-full px-6 py-2">Kunjungi Laman</button></a>
             </div>
             <div class="bg-white rounded-full flex justify-between items-center p-4 mb-4 shadow-md">
               <span class="text-sky-800">4. PDAM</span>
-              <a href="https://www.perumdatirtataman.com/"><button class="bg-yellow-400 text-white rounded-full px-6 py-2">Kunjungi Laman</button></a>
+              <a href="https://www.perumdatirtataman.com/"><button class="bg-yellow-400 text-white rounded-full px-6 py-2" target="blank">Kunjungi Laman</button></a>
             </div>
             <div class="bg-white rounded-full flex justify-between items-center p-4 mb-4 shadow-md">
               <span class="text-sky-800">5. PLN</span>
-              <a href="https://www.plnipservices.co.id/our-portofolio/suplai-energi-ptmg-tarakan-kalimantan-timur"><button class="bg-yellow-400 text-white rounded-full px-6 py-2">Kunjungi Laman</button></a>
+              <a href="https://www.plnipservices.co.id/our-portofolio/suplai-energi-ptmg-tarakan-kalimantan-timur" target="blank"><button class="bg-yellow-400 text-white rounded-full px-6 py-2">Kunjungi Laman</button></a>
             </div>
           </div>
           <!-- Right Section -->

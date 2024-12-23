@@ -26,3 +26,9 @@ Route::get('/berita', action: function () {
 Route::get('/wisata', action: function () {
     return view('wisata');
 });
+Route::get('/prakiraan-cuaca', action: function () {
+    return view('prakiraan-cuaca');
+});
+Route::get('/portal-belanja', action: function () {
+    return view('portal-belanja');
+});
