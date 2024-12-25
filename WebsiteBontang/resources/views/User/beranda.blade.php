@@ -1,3 +1,5 @@
+
+
 <x-layout>
   <x-slot:title>{{ $title }}</x-slot:title>
     <div class="flex flex-col md:flex-row">
@@ -5,49 +7,36 @@
       <div id="indicators-carousel" class="relative w-full md:w-2/3" data-carousel="static">
         <!-- Carousel wrapper -->
         <div class="relative h-[400px] md:h-[400px] overflow-hidden rounded-xl">
-          <!-- Item 1 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
-            <img src="https://cdn.antaranews.com/cache/1200x800/2014/03/20140314Jokowi-Capres-001xb-cp-xx.jpg" class="absolute block w-[900px] h-[400px] -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-          </div>
-          <!-- Item 2 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="https://cdn.antaranews.com/cache/1200x800/2014/03/20140314Jokowi-Capres-001xb-cp-xx.jpg" class="absolute block w-[900px] h-[400px] -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-          </div>
-          <!-- Item 3 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="https://cdn.antaranews.com/cache/1200x800/2014/03/20140314Jokowi-Capres-001xb-cp-xx.jpg" class="absolute block w-[900px] h-[400px] -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-          </div>
-          <!-- Item 4 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="https://cdn.antaranews.com/cache/1200x800/2014/03/20140314Jokowi-Capres-001xb-cp-xx.jpg" class="absolute block w-[900px] h-[400px] -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-          </div>
-          <!-- Item 5 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="https://cdn.antaranews.com/cache/1200x800/2014/03/20140314Jokowi-Capres-001xb-cp-xx.jpg" class="absolute block w-[900px] h-[400px] -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-          </div>
+            <!-- Item -->
+            @foreach($carousel as $index => $item)
+                <div class="duration-700 ease-in-out {{ $index == 0 ? 'block' : 'hidden' }}" data-carousel-item>
+                    <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
+                </div>
+            @endforeach
         </div>
+    
         <!-- Slider indicators -->
         <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
-          <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-          <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-          <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
-          <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
-          <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
+            @foreach($carousel as $index => $item)
+                <button type="button" class="w-3 h-3 rounded-full {{ $index == 0 ? 'bg-blue-600' : 'bg-white' }}" aria-current="{{ $index == 0 ? 'true' : 'false' }}" aria-label="Slide {{ $index + 1 }}" data-carousel-slide-to="{{ $index }}"></button>
+            @endforeach
         </div>
+    
         <!-- Slider controls -->
         <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-            <img src="https://cdn-icons-png.flaticon.com/128/17050/17050534.png" alt="Previous">
-            <span class="sr-only">Previous</span>
-          </span>
+            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                <img src="https://cdn-icons-png.flaticon.com/128/17050/17050534.png" alt="Previous">
+                <span class="sr-only">Previous</span>
+            </span>
         </button>
         <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-            <img src="https://cdn-icons-png.flaticon.com/128/1549/1549454.png" alt="Next">
-            <span class="sr-only">Next</span>
-          </span>
+            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                <img src="https://cdn-icons-png.flaticon.com/128/1549/1549454.png" alt="Next">
+                <span class="sr-only">Next</span>
+            </span>
         </button>
-      </div>
+    </div>
+    
   
       <!-- Card Section -->
       <div class="card bg-base-100 h-[400px] md:h-[400px] shadow-xl rounded-xl ml-10 md:ml-10 mt-5 md:mt-0 relative overflow-hidden ">

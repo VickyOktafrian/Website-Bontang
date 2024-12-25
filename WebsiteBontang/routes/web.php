@@ -1,22 +1,56 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CarouselController;
 
-$routes = [
-    '/' => ['user.beranda', 'Beranda', 'beranda'],
-    '/daftar' => ['user.register', null, 'daftar'],
-    '/login' => ['user.login', null, 'login'],
-    '/pengaduan' => ['user.pengaduan', 'Pengaduan', 'pengaduan'],
-    '/wisata' => ['user.wisata', 'Wisata', 'wisata'],
-    '/laman-berita' => ['user.laman-berita', 'Laman Berita', 'laman-berita'],
-    '/berita' => ['user.berita', 'Berita', 'berita'],
-    '/prakiraan-cuaca' => ['user.prakiraan-cuaca', 'Prakiraan Cuaca', 'prakiraan-cuaca'],
-    '/portal-belanja' => ['user.portal-belanja', 'Portal Belanja', 'portal-belanja'],
-    '/belanja' => ['user.belanja', 'Belanja', 'belanja'],
-    '/profil' => ['user.profil', 'Profil', 'profil']
-];
+// Route 1: Beranda
+Route::get('/', [CarouselController::class, 'index'])->name('beranda');
 
-foreach ($routes as $uri => [$view, $title, $name]) {
-    Route::get($uri, function () use ($view, $title) {
-        return view($view, $title ? ['title' => $title] : []);
-    })->name($name);
-}
+// Route 2: Daftar
+Route::get('/daftar', function () {
+    return view('user.register');
+})->name('daftar');
+
+// Route 3: Login
+Route::get('/login', function () {
+    return view('user.login');
+})->name('login');
+
+// Route 4: Pengaduan
+Route::get('/pengaduan', function () {
+    return view('user.pengaduan', ['title' => 'Pengaduan']);
+})->name('pengaduan');
+
+// Route 5: Wisata
+Route::get('/wisata', function () {
+    return view('user.wisata', ['title' => 'Wisata']);
+})->name('wisata');
+
+// Route 6: Laman Berita
+Route::get('/laman-berita', function () {
+    return view('user.laman-berita', ['title' => 'Laman Berita']);
+})->name('laman-berita');
+
+// Route 7: Berita
+Route::get('/berita', function () {
+    return view('user.berita', ['title' => 'Berita']);
+})->name('berita');
+
+// Route 8: Prakiraan Cuaca
+Route::get('/prakiraan-cuaca', function () {
+    return view('user.prakiraan-cuaca', ['title' => 'Prakiraan Cuaca']);
+})->name('prakiraan-cuaca');
+
+// Route 9: Portal Belanja
+Route::get('/portal-belanja', function () {
+    return view('user.portal-belanja', ['title' => 'Portal Belanja']);
+})->name('portal-belanja');
+
+// Route 10: Belanja
+Route::get('/belanja', function () {
+    return view('user.belanja', ['title' => 'Belanja']);
+})->name('belanja');
+
+// Route 11: Profil
+Route::get('/profil', function () {
+    return view('user.profil', ['title' => 'Profil']);
+})->name('profil');
