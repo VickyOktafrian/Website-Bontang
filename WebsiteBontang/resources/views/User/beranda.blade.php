@@ -59,18 +59,16 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 justify-between">
 
       @foreach ($berita as $item)
-          <article class="overflow-hidden rounded-xl shadow transition hover:shadow-lg m-5">
+          <article class="overflow-hidden rounded-xl shadow transition hover:shadow-lg m-5 bg-white">
               <img alt="" src="{{ asset('storage/' . $item->thumbnail) }}" class="h-56 w-full object-cover" />
-              <div class="bg-white p-4 sm:p-6">
+              <div class=" p-4 sm:p-6">
                   <time datetime="{{ $item->created_at->toDateString() }}" class="block text-xs text-gray-500">
                       {{ $item->created_at->diffForHumans() }}
                   </time>
                  
                       <h3 class="mt-0.5 text-lg text-gray-900">{{ $item->judul }}</h3>
               
-                  <p class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
-                      {{ $item->isi }}
-                  </p>
+                  
                   <a href="{{ route('berita', $item->slug) }}" class="text-blue-500 text-sm mt-3 inline-block">Baca Selengkapnya</a>
               </div>
           </article>

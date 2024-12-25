@@ -8,7 +8,7 @@
                 <div class="sm:col-span-5 justify-center items-center">
                     <a href="{{ route('berita', $berita->first()->slug) }}">
                         <div class="bg-cover text-center overflow-hidden"
-                            style="min-height: 300px; background-image: url('{{ $berita->first()->thumbnail }}')"
+                            style="min-height: 300px; background-image: url('{{ asset('storage/' . $berita->first()->thumbnail)  }}')"
                             title="{{ $berita->first()->judul }}">
                         </div>
                     </a>
@@ -21,12 +21,12 @@
                     <div class="">
                         <a href="{{ route('berita', $item->slug) }}">
                             <div class="h-40 bg-cover text-center overflow-hidden"
-                                style="background-image: url('{{ $item->thumbnail }}')"
+                                style="background-image: url('{{ asset('storage/' . $item->thumbnail) }}')"
                                 title="{{ $item->judul }}">
                             </div>
                         </a>
                         <a href="{{ route('berita', $item->slug) }}"
-                            class="text-gray-900 inline-block font-semibold text-md my-2 hover:text-indigo-600 transition duration-500 ease-in-out">
+                            class="text-gray-900 inline-block font-semibold text-md my-2 hover:text-gray-500 transition duration-500 ease-in-out">
                             {{ $item->judul }}
                         </a>
                     </div>
@@ -44,14 +44,14 @@
                 <div class="sm:col-span-6 lg:col-span-5">
                     <a href="{{ route('berita', $berita->skip(7)->first()->slug) }}">
                         <div class="h-56 bg-cover text-center overflow-hidden"
-                            style="background-image: url('{{ $berita->skip(7)->first()->thumbnail }}')"
+                            style="background-image: url('{{ asset('storage/' .$berita->skip(7)->first()->thumbnail )}}')"
                             title="{{ $berita->skip(7)->first()->judul }}">
                         </div>
                     </a>
                     <div class="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal">
                         <div class="lg:pl-16">
                             <a href="{{ route('berita', $berita->skip(7)->first()->slug) }}"
-                                class="text-gray-900 font-bold text-lg mb-2 hover:text-indigo-600 transition duration-500 ease-in-out">
+                                class="text-gray-900 font-bold text-lg mb-2 hover:text-gray-500 transition duration-500 ease-in-out">
                                 {{ $berita->skip(7)->first()->judul }}
                             </a>
                         </div>
@@ -65,13 +65,13 @@
                     <div class="flex items-start mb-3 pb-3">
                         <a href="{{ route('berita', $item->slug) }}" class="inline-block mr-3">
                             <div class="w-20 h-20 bg-cover bg-center"
-                                style="background-image:url('{{ $item->thumbnail }}');">
+                                style="background-image:url('{{ asset('storage/' . $berita->thumbnail)  }}');">
                             </div>
                         </a>
                         <div class="text-sm">
                             <p class="text-gray-600 text-xs">{{ $item->created_at->format('M d') }}</p>
                             <a href="{{ route('berita', $item->slug) }}"
-                                class="text-gray-900 font-medium hover:text-indigo-600 leading-none">
+                                class="text-gray-900 font-medium hover:text-gray-500 leading-none">
                                 {{ $item->judul }}
                             </a>
                         </div>
@@ -84,14 +84,14 @@
                 <div class="sm:col-span-12 lg:col-span-3">
                     <a href="{{ route('berita', $berita->skip(12)->first()->slug) }}">
                         <div class="h-56 bg-cover text-center overflow-hidden"
-                            style="background-image: url('{{ $berita->skip(12)->first()->thumbnail }}')"
+                            style="background-image: url('{{ asset('storage/' .$berita->skip(7)->first()->thumbnail )}}')"
                             title="{{ $berita->skip(12)->first()->judul }}">
                         </div>
                     </a>
                     <div class="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal">
                         <div class="">
                             <a href="{{ route('berita', $berita->skip(12)->first()->slug) }}"
-                                class="text-gray-900 font-bold text-lg mb-2 hover:text-indigo-600 transition duration-500 ease-in-out">
+                                class="text-gray-900 font-bold text-lg mb-2 hover:text-gray-500 transition duration-500 ease-in-out">
                                 {{ $berita->skip(12)->first()->judul }}
                             </a>
                         </div>
@@ -103,7 +103,8 @@
     </div>
 
     {{-- Pagination --}}
-    <nav class="mb-4 flex justify-center space-x-4" aria-label="Pagination">
+    <nav class="mb-4 flex justify-center space-x-4 mt-10" aria-label="Pagination">
+        
 
         {{-- Previous Button --}}
         @if ($berita->onFirstPage())

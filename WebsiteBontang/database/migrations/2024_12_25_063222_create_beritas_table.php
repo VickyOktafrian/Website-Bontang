@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('beritas', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
+            $table->string('author');
+            $table->string('judul_gambar');
             $table->string('slug');
             $table->string('thumbnail');
-            $table->string('isi');
+            $table->longtext('isi');
 
             $table->timestamps();
         });

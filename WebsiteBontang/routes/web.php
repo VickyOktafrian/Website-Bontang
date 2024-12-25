@@ -33,7 +33,7 @@ Route::get('/laman-berita', [LamanBeritaController::class,'index'])
 ->name('laman-berita');
 
 // Route 7: Berita
-Route::get('/laman-berita/{slug}', [BeritaController::class,'showBerita'])
+Route::get('/laman-berita/{slug}', [BeritaController::class,'index'])
 ->name('berita');
 
 // Route 8: Prakiraan Cuaca

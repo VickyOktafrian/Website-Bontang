@@ -43,6 +43,9 @@ class CarouselResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('title')
                     ->sortable()
                     ->searchable(),
@@ -56,6 +59,8 @@ class CarouselResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\EditAction::make(),
+
                 
             ])
             ->bulkActions([

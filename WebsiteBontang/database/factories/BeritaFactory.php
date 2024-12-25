@@ -12,7 +12,9 @@ class BeritaFactory extends Factory
     public function definition()
     {
         return [
-            'judul' => $this->faker->sentence,  
+            'judul' => $this->faker->sentence, 
+            'author'=>$this->faker->name,
+            'judul_gambar'=>$this->faker->sentence, 
             'slug' => $this->faker->slug,       
             'thumbnail' => 'https://via.placeholder.com/640x480/000000/000000?text=Thumbnail', 
             'isi' => $this->faker->paragraph,   

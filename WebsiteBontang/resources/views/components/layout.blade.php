@@ -23,11 +23,12 @@
     
     <main class="mt-28">
 
-        @if(request()->route()->getName() !== 'beranda') 
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <x-breadcrumb :title="$title" />
-        </div>
+        @if(request()->route()->getName() !== 'beranda' && request()->route()->getName() !== 'berita') 
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <x-breadcrumb :title="$title" />
+            </div>
         @endif
+    
 
         <!-- Main Content -->
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">

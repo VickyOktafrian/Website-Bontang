@@ -38,7 +38,13 @@ class BeritaResource extends Resource
                         ->required()->image()->disk('public'),
                         
                         Forms\Components\RichEditor::make('isi')
-                            ->required()
+                            ->required(),
+                        Forms\Components\TextInput::make('author')
+                        ->required()
+                        ->maxLength(255),
+                        Forms\Components\TextInput::make('judul_gambar')
+                        ->required()
+                        ->maxLength(255),
                           
                         ])
             ]);
@@ -48,12 +54,16 @@ class BeritaResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('judul')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('slug'),
               
+                
                 Tables\Columns\ImageColumn::make('thumbnail'),
+                Tables\Columns\TextColumn::make('author'),
      
                     Tables\Columns\TextColumn::make('created_at')
                     ->sortable()
@@ -63,9 +73,10 @@ class BeritaResource extends Resource
                     ->dateTime(),
             ])
             ->filters([
-                //
-            ])
-            ->actions([
+                
+                ])
+                ->actions([
+                Tables\Actions\EditAction::make(),
                 
             ])
             ->bulkActions([

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Berita extends Model
 {
     use HasFactory;
-    protected $fillable =['judul','slug','thumbnail','isi'];
+    protected $fillable =['judul','author','judul_gambar','slug','thumbnail','isi'];
     protected static function boot()
     {
         parent::boot();

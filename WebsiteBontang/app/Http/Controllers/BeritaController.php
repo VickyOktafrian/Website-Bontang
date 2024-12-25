@@ -15,8 +15,11 @@ class BeritaController extends Controller
         // Cari berita berdasarkan slug
         $berita = Berita::where('slug', $slug)->firstOrFail();
         
+        
+        
         // Kembalikan pandangan dengan data berita dan tajuk
         return view('user.berita', [
+            
             'berita' => $berita,
             'title' => $berita->judul,
         ]);
