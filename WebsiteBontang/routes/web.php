@@ -2,6 +2,7 @@
 use App\Http\Controllers\BeritaController;
 
 use App\Http\Controllers\LamanBeritaController;
+use App\Http\Controllers\WisataController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarouselController;
 
@@ -24,9 +25,8 @@ Route::get('/pengaduan', function () {
 })->name('pengaduan');
 
 // Route 5: Wisata
-Route::get('/wisata', function () {
-    return view('user.wisata', ['title' => 'Wisata']);
-})->name('wisata');
+Route::get('/wisata/{slug}', [WisataController::class,'index'])
+->name('wisata');
 
 // Route 6: Laman Berita
 Route::get('/laman-berita', [LamanBeritaController::class,'index'])

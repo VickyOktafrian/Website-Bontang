@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
-use App\Models\Berita;
+use App\Models\Wisata;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
@@ -12,13 +12,13 @@ use Filament\Forms\Components\Card;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use App\Filament\Resources\BeritaResource\Pages;
+use App\Filament\Resources\WisataResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\BeritaResource\RelationManagers;
+use App\Filament\Resources\WisataResource\RelationManagers;
 
-class BeritaResource extends Resource
+class WisataResource extends Resource
 {
-    protected static ?string $model = Berita::class;
+    protected static ?string $model = Wisata::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -40,13 +40,7 @@ class BeritaResource extends Resource
                         
                         Forms\Components\RichEditor::make('isi')
                             ->required(),
-                        Forms\Components\TextInput::make('author')
-                        ->required()
-                        ->maxLength(255),
-                        Forms\Components\TextInput::make('judul_gambar')
-                        ->required()
-                        ->maxLength(255),
-                          
+                      
                         ])
             ]);
     }
@@ -64,7 +58,7 @@ class BeritaResource extends Resource
               
                 
                 Tables\Columns\ImageColumn::make('thumbnail'),
-                Tables\Columns\TextColumn::make('author'),
+                
      
                     Tables\Columns\TextColumn::make('created_at')
                     ->sortable()
@@ -107,9 +101,9 @@ class BeritaResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListBeritas::route('/'),
-            'create' => Pages\CreateBerita::route('/create'),
-            'edit' => Pages\EditBerita::route('/{record}/edit'),
+            'index' => Pages\ListWisatas::route('/'),
+            'create' => Pages\CreateWisata::route('/create'),
+            'edit' => Pages\EditWisata::route('/{record}/edit'),
         ];
     }
 }
