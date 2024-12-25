@@ -2,16 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BeritaResource\Pages;
-use App\Filament\Resources\BeritaResource\RelationManagers;
-use App\Models\Berita;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Berita;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Card;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\BeritaResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\BeritaResource\RelationManagers;
 
 class BeritaResource extends Resource
 {
@@ -23,7 +25,22 @@ class BeritaResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Card::make()->schema([
+
+                    Forms\Components\TextInput::make('judul')
+                        ->required()
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('slug')
+                        ->required()
+                        ->maxLength(255),
+                        Forms\Components\FileUpload::make('thumbnail')
+                        
+                        ->required()->image()->disk('public'),
+                        
+                        Forms\Components\RichEditor::make('isi')
+                            ->required()
+                          
+                        ])
             ]);
     }
 
@@ -31,18 +48,40 @@ class BeritaResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('judul')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('slug'),
+              
+                Tables\Columns\ImageColumn::make('thumbnail'),
+     
+                    Tables\Columns\TextColumn::make('created_at')
+                    ->sortable()
+                    ->dateTime(),
+                    Tables\Columns\TextColumn::make('updated_at')
+                    ->sortable()
+                    ->dateTime(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+             
+                    Tables\Actions\DeleteBulkAction::make()->after(
+                        function(Collection $record){
+                            foreach(
+                                $record as $key =>$value
+                            ){
+                               if($value->thumbnail){
+                                Storage::disk('public')->delete($value->thumbnail);
+                               } 
+                            }
+                        }
+                    ),
+             
             ]);
     }
 

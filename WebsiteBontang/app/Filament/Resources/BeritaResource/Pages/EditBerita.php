@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\BeritaResource\Pages;
 
-use App\Filament\Resources\BeritaResource;
 use Filament\Actions;
+use App\Models\Berita;
+use Illuminate\Support\Facades\Storage;
 use Filament\Resources\Pages\EditRecord;
+use App\Filament\Resources\BeritaResource;
 
 class EditBerita extends EditRecord
 {
@@ -13,7 +15,13 @@ class EditBerita extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()->after(
+                function(Berita $record){
+                    if ($record->thumbnail){
+                        Storage::disk('public')->delete($record->thumbnail);
+                    }
+                }
+            ),
         ];
     }
 }
