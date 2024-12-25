@@ -23,6 +23,6 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('123'),
         ]);
         carousel::factory()->count(5)->create();
-        Berita::factory()->count(10)->create();
+        Berita::factory()->count(150)->create();
     }
 }

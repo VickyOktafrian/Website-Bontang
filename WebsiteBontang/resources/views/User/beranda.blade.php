@@ -5,12 +5,12 @@
   
     <div class="flex flex-col md:flex-row">
       <!-- Carousel Section -->
-      <div id="indicators-carousel" class="relative w-full md:w-2/3" data-carousel="static">
+      <div id="indicators-carousel" class="relative w-full md:w-2/3 bg-base-100 shadow-xl " data-carousel="static">
         <!-- Carousel wrapper -->
         <div class="relative h-[400px] md:h-[400px] overflow-hidden rounded-xl">
             <!-- Item -->
             @foreach($carousel as $index => $item)
-                <div class="duration-700 ease-in-out {{ $index == 0 ? 'block' : 'hidden' }}" data-carousel-item>
+                <div class="duration-700 ease-in-out rounded-xl {{ $index == 0 ? 'block' : 'hidden' }}" data-carousel-item>
                     <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
                 </div>
             @endforeach

@@ -1,5 +1,7 @@
 <?php
 use App\Http\Controllers\BeritaController;
+
+use App\Http\Controllers\LamanBeritaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarouselController;
 
@@ -27,12 +29,11 @@ Route::get('/wisata', function () {
 })->name('wisata');
 
 // Route 6: Laman Berita
-Route::get('/laman-berita', function () {
-    return view('user.laman-berita', ['title' => 'Laman Berita']);
-})->name('laman-berita');
+Route::get('/laman-berita', [LamanBeritaController::class,'index'])
+->name('laman-berita');
 
 // Route 7: Berita
-Route::get('/laman-berita/{slug}', [BeritaController::class,'index'])
+Route::get('/laman-berita/{slug}', [BeritaController::class,'showBerita'])
 ->name('berita');
 
 // Route 8: Prakiraan Cuaca

@@ -2,203 +2,171 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16 relative">
         <div class="grid grid-cols-1 sm:grid-cols-12 gap-5">
-    
-            <div class="sm:col-span-5">
-                <a href="#">
-                    <div class="bg-cover text-center overflow-hidden"
-                        style="min-height: 300px; background-image: url('https://api.time.com/wp-content/uploads/2020/07/never-trumpers-2020-election-01.jpg?quality=85&amp;w=1201&amp;h=676&amp;crop=1')"
-                        title="Woman holding a mug">
-                    </div>
-                </a>
-                <div
-                    class="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal">
-                    <div class="">
-                        <a href="#"
-                            class="text-xs text-indigo-600 uppercase font-medium hover:text-gray-900 transition duration-500 ease-in-out">
-                            Election
-                        </a>
-                        <a href="#"
-                            class="block text-gray-900 font-bold text-2xl mb-2 hover:text-indigo-600 transition duration-500 ease-in-out">Revenge
-                            of the Never Trumpers</a>
-                        <p class="text-gray-700 text-base mt-2">Meet the Republican dissidents fighting to push Donald Trump
-                            out of office—and reclaim their party</p>
-                    </div>
+
+            {{-- Berita Utama --}}
+            @if ($berita->first())
+                <div class="sm:col-span-5 justify-center items-center">
+                    <a href="{{ route('berita', $berita->first()->slug) }}">
+                        <div class="bg-cover text-center overflow-hidden"
+                            style="min-height: 300px; background-image: url('{{ $berita->first()->thumbnail }}')"
+                            title="{{ $berita->first()->judul }}">
+                        </div>
+                    </a>
                 </div>
-            </div>
-    
+            @endif
+
+            {{-- Berita Lainnya --}}
             <div class="sm:col-span-7 grid grid-cols-2 lg:grid-cols-3 gap-5">
-                <div class="">
-                    <a href="#">
-                        <div class="h-40 bg-cover text-center overflow-hidden"
-                            style="background-image: url('https://api.time.com/wp-content/uploads/2020/07/president-trump-coronavirus-election.jpg?quality=85&amp;w=364&amp;h=204&amp;crop=1')"
-                            title="Woman holding a mug">
-                        </div>
-                    </a>
-                    <a href="#"
-                        class="text-gray-900 inline-block font-semibold text-md my-2 hover:text-indigo-600 transition duration-500 ease-in-out">Trump
-                        Steps Back Into Coronavirus Spotlight</a>
-                </div>
-                <div class="">
-                    <a href="#">
-                        <div class="h-40 bg-cover text-center overflow-hidden"
-                            style="background-image: url('https://api.time.com/wp-content/uploads/2020/06/GettyImages-1222922545.jpg?quality=85&amp;w=364&amp;h=204&amp;crop=1')"
-                            title="Woman holding a mug">
-                        </div>
-                    </a>
-                    <a href="#"
-                        class="text-gray-900 inline-block font-semibold text-md my-2 hover:text-indigo-600 transition duration-500 ease-in-out">How
-                        Trump's Mistakes Became Biden's Big Breaks</a>
-                </div>
-                <div class="">
-                    <a href="#">
-                        <div class="h-40 bg-cover text-center overflow-hidden"
-                            style="background-image: url('https://api.time.com/wp-content/uploads/2020/07/American-Flag.jpg?quality=85&amp;w=364&amp;h=204&amp;crop=1')"
-                            title="Woman holding a mug">
-                        </div>
-                    </a>
-                    <a href="#"
-                        class="text-gray-900 inline-block font-semibold text-md my-2 hover:text-indigo-600 transition duration-500 ease-in-out">Survey:
-                        Many Americans 'Dissatisfied' With U.S.</a>
-                </div>
-                <div class="">
-                    <a href="#">
-                        <div class="h-40 bg-cover text-center overflow-hidden"
-                            style="background-image: url('https://api.time.com/wp-content/uploads/2020/06/GettyImages-1222922545.jpg?quality=85&amp;w=364&amp;h=204&amp;crop=1')"
-                            title="Woman holding a mug">
-                        </div>
-                    </a>
-                    <a href="#"
-                        class="text-gray-900 inline-block font-semibold text-md my-2 hover:text-indigo-600 transition duration-500 ease-in-out">How
-                        Trump's Mistakes Became Biden's Big Breaks</a>
-                </div>
-                <div class="">
-                    <a href="#">
-                        <div class="h-40 bg-cover text-center overflow-hidden"
-                            style="background-image: url('https://api.time.com/wp-content/uploads/2020/07/American-Flag.jpg?quality=85&amp;w=364&amp;h=204&amp;crop=1')"
-                            title="Woman holding a mug">
-                        </div>
-                    </a>
-                    <a href="#"
-                        class="text-gray-900 inline-block font-semibold text-md my-2 hover:text-indigo-600 transition duration-500 ease-in-out">Survey:
-                        Many Americans 'Dissatisfied' With U.S.</a>
-                </div>
-                <div class="">
-                    <a href="#">
-                        <div class="h-40 bg-cover text-center overflow-hidden"
-                            style="background-image: url('https://api.time.com/wp-content/uploads/2020/07/president-trump-coronavirus-election.jpg?quality=85&amp;w=364&amp;h=204&amp;crop=1')"
-                            title="Woman holding a mug">
-                        </div>
-                    </a>
-                    <a href="#"
-                        class="text-gray-900 inline-block font-semibold text-md my-2 hover:text-indigo-600 transition duration-500 ease-in-out">Trump
-                        Steps Back Into Coronavirus Spotlight</a>
-                </div>
-            </div>
-    
-        </div>
-    </div>  
-
-
-    <div class="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16 relative">
-        <div class="grid grid-cols-1 sm:grid-cols-12 gap-10">
-    
-            <div class="sm:col-span-6 lg:col-span-5">
-                <a href="#">
-                    <div class="h-56 bg-cover text-center overflow-hidden"
-                        style="background-image: url('https://tailwindcss.com/img/card-left.jpg')"
-                        title="Woman holding a mug">
-                    </div>
-                </a>
-                <div
-                    class="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal">
-                    <div class="lg:pl-16">
-                        <a href="#"
-                            class="text-xs text-indigo-600 uppercase font-medium mb-3 flex items-center hover:text-gray-900 transition duration-500 ease-in-out">
-                            Fashion
-                        </a>
-                        <a href="#"
-                            class="text-gray-900 font-bold text-lg mb-2 hover:text-indigo-600 transition duration-500 ease-in-out">The
-                            perfect summer sweater that you can wear! </a>
-                        <p class="text-gray-700 text-xs mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                            Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-                        </p>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="sm:col-span-6 lg:col-span-4">
-                <div class="flex items-start mb-3 pb-3">
-                    <a href="#" class="inline-block mr-3">
-                        <div class="w-20 h-20 bg-cover bg-center"
-                            style="background-image:url(https://media.gettyimages.com/photos/cristiano-ronaldo-of-juventus-fc-looks-dejected-during-the-uefa-of-picture-id1227967060?k=6&amp;m=1227967060&amp;s=612x612&amp;w=0&amp;h=cMSMlRyI6YAzcE_C2KgHGRLeVojHYoUhIvhwPBYv8f4=);">
-                        </div>
-                    </a>
-                    <div class="text-sm">
-                        <p class="text-gray-600 text-xs">Aug 18</p>
-                        <a href="#" class="text-gray-900 font-medium hover:text-indigo-600 leading-none">Cristiano Ronaldo
-                            of Juventus FC looks dejected during the...</a>
-                    </div>
-                </div>
-                <div class="flex items-start mb-3 pb-3">
-                    <a href="#" class="inline-block mr-3">
-                        <div class="w-20 h-20 bg-cover bg-center"
-                            style="background-image:url(https://media.gettyimages.com/photos/lionel-messi-and-marcandre-ter-stegen-of-fc-barcelona-waits-in-the-picture-id1266763488?k=6&amp;m=1266763488&amp;s=612x612&amp;w=0&amp;h=8vxz9HfQVfrff5N7d1lBVxtLamRQGK3J3lyHkUuuIiw=);">
-                        </div>
-                    </a>
-                    <div class="text-sm w-2/3">
-                        <p class="text-gray-600 text-xs">Jan 18</p>
-                        <a href="#" class="text-gray-900 font-medium hover:text-indigo-600 leading-none">Barcelona v Bayern
-                            Munich </a>
-                    </div>
-                </div>
-                <div class="flex items-start mb-3 pb-3">
-                    <a href="#" class="inline-block mr-3">
-                        <div class="w-20 h-20 bg-cover bg-center"
-                            style="background-image:url(https://media.gettyimages.com/photos/cristiano-ronaldo-of-juventus-fc-looks-dejected-during-the-uefa-of-picture-id1227967060?k=6&amp;m=1227967060&amp;s=612x612&amp;w=0&amp;h=cMSMlRyI6YAzcE_C2KgHGRLeVojHYoUhIvhwPBYv8f4=);">
-                        </div>
-                    </a>
-                    <div class="text-sm">
-                        <p class="text-gray-600 text-xs">Aug 18</p>
-                        <a href="#" class="text-gray-900 font-medium hover:text-indigo-600 leading-none">Cristiano Ronaldo
-                            of Juventus FC looks dejected during the...</a>
-                    </div>
-                </div>
-                <div class="flex items-start">
-                    <a href="#" class="inline-block mr-3">
-                        <div class="w-20 h-20 bg-cover bg-center"
-                            style="background-image:url(https://media.gettyimages.com/photos/lionel-messi-of-fc-barcelona-looks-dejected-following-his-teams-in-picture-id1266341828?k=6&amp;m=1266341828&amp;s=612x612&amp;w=0&amp;h=FZi-bSrIlOEE01780h79GsbBYPqZo2l3aaCxoktWADY=);">
-                        </div>
-                    </a>
-                    <div class="text-sm w-2/3">
-                        <p class="text-gray-600 text-xs">July 23</p>
-                        <a href="#" class="text-gray-900 font-medium hover:text-indigo-600 leading-none">Barcelona v Bayern
-                            Munich - UEFA Champions League </a>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="sm:col-span-12 lg:col-span-3">
-                <a href="#">
-                    <div class="h-56 bg-cover text-center overflow-hidden"
-                        style="background-image: url('https://tailwindcss.com/img/card-left.jpg')"
-                        title="Woman holding a mug">
-                    </div>
-                </a>
-                <div
-                    class="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal">
+                @foreach ($berita->skip(1)->take(6) as $item) {{-- skip(1)->take(6) is fine here for the next 6 items --}}
                     <div class="">
-                        <a href="#"
-                            class="text-xs text-indigo-600 uppercase font-medium flex items-center hover:text-gray-900 transition duration-500 ease-in-out">
-                            Fashion
+                        <a href="{{ route('berita', $item->slug) }}">
+                            <div class="h-40 bg-cover text-center overflow-hidden"
+                                style="background-image: url('{{ $item->thumbnail }}')"
+                                title="{{ $item->judul }}">
+                            </div>
                         </a>
-                        <a href="#"
-                            class="text-gray-900 font-bold text-lg mb-2 hover:text-indigo-600 transition duration-500 ease-in-out">The
-                            perfect summer sweater that you can wear! </a>
-                        <p class="text-gray-700 text-xs mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        <a href="{{ route('berita', $item->slug) }}"
+                            class="text-gray-900 inline-block font-semibold text-md my-2 hover:text-indigo-600 transition duration-500 ease-in-out">
+                            {{ $item->judul }}
+                        </a>
                     </div>
-                </div>
+                @endforeach
             </div>
-    
         </div>
     </div>
+
+    {{-- Berita Tambahan --}}
+    <div class="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16 relative">
+        <div class="grid grid-cols-1 sm:grid-cols-12 gap-10">
+
+            {{-- Berita Sidebar Kiri --}}
+            @if ($berita->skip(7)->first()) {{-- Skip first 7 items --}}
+                <div class="sm:col-span-6 lg:col-span-5">
+                    <a href="{{ route('berita', $berita->skip(7)->first()->slug) }}">
+                        <div class="h-56 bg-cover text-center overflow-hidden"
+                            style="background-image: url('{{ $berita->skip(7)->first()->thumbnail }}')"
+                            title="{{ $berita->skip(7)->first()->judul }}">
+                        </div>
+                    </a>
+                    <div class="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal">
+                        <div class="lg:pl-16">
+                            <a href="{{ route('berita', $berita->skip(7)->first()->slug) }}"
+                                class="text-gray-900 font-bold text-lg mb-2 hover:text-indigo-600 transition duration-500 ease-in-out">
+                                {{ $berita->skip(7)->first()->judul }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            {{-- Berita Sidebar Tengah --}}
+            <div class="sm:col-span-6 lg:col-span-4">
+                @foreach ($berita->skip(8)->take(4) as $item) {{-- Skip 8 and take next 4 items --}}
+                    <div class="flex items-start mb-3 pb-3">
+                        <a href="{{ route('berita', $item->slug) }}" class="inline-block mr-3">
+                            <div class="w-20 h-20 bg-cover bg-center"
+                                style="background-image:url('{{ $item->thumbnail }}');">
+                            </div>
+                        </a>
+                        <div class="text-sm">
+                            <p class="text-gray-600 text-xs">{{ $item->created_at->format('M d') }}</p>
+                            <a href="{{ route('berita', $item->slug) }}"
+                                class="text-gray-900 font-medium hover:text-indigo-600 leading-none">
+                                {{ $item->judul }}
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            {{-- Berita Sidebar Kanan --}}
+            @if ($berita->skip(12)->first()) {{-- Skip first 12 items --}}
+                <div class="sm:col-span-12 lg:col-span-3">
+                    <a href="{{ route('berita', $berita->skip(12)->first()->slug) }}">
+                        <div class="h-56 bg-cover text-center overflow-hidden"
+                            style="background-image: url('{{ $berita->skip(12)->first()->thumbnail }}')"
+                            title="{{ $berita->skip(12)->first()->judul }}">
+                        </div>
+                    </a>
+                    <div class="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal">
+                        <div class="">
+                            <a href="{{ route('berita', $berita->skip(12)->first()->slug) }}"
+                                class="text-gray-900 font-bold text-lg mb-2 hover:text-indigo-600 transition duration-500 ease-in-out">
+                                {{ $berita->skip(12)->first()->judul }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+        </div>
+    </div>
+
+    {{-- Pagination --}}
+    <nav class="mb-4 flex justify-center space-x-4" aria-label="Pagination">
+
+        {{-- Previous Button --}}
+        @if ($berita->onFirstPage())
+            <span class="rounded-lg border border-sky-600 px-2 py-2 text-gray-700 cursor-not-allowed">
+                <span class="sr-only">Previous</span>
+                <svg class="mt-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                    aria-hidden="true">
+                    <path fill-rule="evenodd"
+                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                        clip-rule="evenodd">
+                    </path>
+                </svg>
+            </span>
+        @else
+            <a href="{{ $berita->previousPageUrl() }}" class="rounded-lg border border-sky-600 px-2 py-2 text-gray-700">
+                <span class="sr-only">Previous</span>
+                <svg class="mt-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                    aria-hidden="true">
+                    <path fill-rule="evenodd"
+                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                        clip-rule="evenodd">
+                    </path>
+                </svg>
+            </a>
+        @endif
+    
+        {{-- Page Number Links --}}
+        @foreach ($berita->getUrlRange(1, $berita->lastPage()) as $page => $url)
+            @if ($page == $berita->currentPage())
+                <span class="rounded-lg border border-sky-600 bg-sky-400 px-4 py-2 text-white">{{ $page }}</span>
+            @else
+                <a href="{{ $url }}" class="rounded-lg border border-sky-600 px-4 py-2 text-gray-700 hover:text-white hover:bg-sky-400 transition duration-200">
+                    {{ $page }}
+                </a>
+            @endif
+        @endforeach
+    
+        {{-- Next Button --}}
+        @if ($berita->hasMorePages())
+            <a href="{{ $berita->nextPageUrl() }}" class="rounded-lg border border-sky-600 px-2 py-2 text-gray-700">
+                <span class="sr-only">Next</span>
+                <svg class="mt-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                    aria-hidden="true">
+                    <path fill-rule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clip-rule="evenodd">
+                    </path>
+                </svg>
+            </a>
+        @else
+            <span class="rounded-lg border border-sky-600 px-2 py-2 text-gray-700 cursor-not-allowed">
+                <span class="sr-only">Next</span>
+                <svg class="mt-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                    aria-hidden="true">
+                    <path fill-rule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clip-rule="evenodd">
+                    </path>
+                </svg>
+            </span>
+        @endif
+    
+    </nav>
+    
+
 </x-layout>
