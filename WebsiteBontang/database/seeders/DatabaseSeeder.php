@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Berita;
+use App\Models\Wisata;
 use App\Models\carousel;
 use Illuminate\Database\Seeder;
 
@@ -24,5 +25,6 @@ class DatabaseSeeder extends Seeder
         ]);
         carousel::factory()->count(5)->create();
         // Berita::factory()->count(150)->create();
+        Wisata::factory()->count(10)->create();
     }
 }

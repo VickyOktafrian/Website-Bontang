@@ -87,9 +87,10 @@
     </div>
     
     <div class="flex items-center justify-between">
-        <h1 class="text-6xl font-bold">Kuy, Liburan di Bontang!</h1>
+        <h1 class="text-6xl font-bold mr-20">Kuy, Liburan di Bontang!</h1>
        
-        <x-pariwisata></x-pariwisata>
+        <x-pariwisata :pariwisata="$pariwisata" />
+
     </div>
     <div class="grid items-center justify-center mt-36 pb-20 bg-sky-200 w-full rounded-xl">
         <img class="mid" src="{{ asset('images/belanja.png') }}" alt="Belanja" />

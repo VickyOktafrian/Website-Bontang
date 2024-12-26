@@ -9,14 +9,14 @@ class WisataController extends Controller
 {
     public function index($slug) 
     {
-        $berita = Wisata::where('slug', $slug)->firstOrFail();
+        $wisata = Wisata::where('slug', $slug)->firstOrFail();
         
         
         
         return view('user.wisata', [
             
-            'wisata' => $berita,
-            'title' => $berita->judul,
+            'wisata' => $wisata,
+            'title' => $wisata->judul,
         ]);
     }
 }
