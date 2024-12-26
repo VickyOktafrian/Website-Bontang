@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
 
 use App\Http\Controllers\LamanBeritaController;
@@ -11,14 +12,14 @@ use App\Http\Controllers\CarouselController;
 Route::get('/', [CarouselController::class, 'index'])->name(name: 'beranda');
 
 // Route 2: Daftar
-Route::get('/daftar', function () {
-    return view('user.register');
-})->name('daftar');
+Route::get('/daftar', [AuthController::class,'showDaftar'])->name('daftar.tampil');
+Route::post('/daftar/submit', [AuthController::class,'submitDaftar'])->name('daftar.submit');
 
 // Route 3: Login
-Route::get('/login', function () {
-    return view('user.login');
-})->name('login');
+Route::get('/login', [AuthController::class,'showLogin'])->name('login.tampil');
+Route::post('/login/submit', [AuthController::class,'submitLogin'])->name('login.submit');
+Route::post('/logout', [AuthController::class,'logout'])->name('logout');
+
 
 // Route 4: Pengaduan
 Route::get('/pengaduan', function () {

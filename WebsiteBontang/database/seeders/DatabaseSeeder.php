@@ -20,8 +20,10 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'admin ganteng',
+            'username' => 'admin ganteng',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('123'),
+            'role'=>'admin',
         ]);
         carousel::factory()->count(5)->create();
         // Berita::factory()->count(150)->create();

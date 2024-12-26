@@ -61,13 +61,14 @@
     <div class="w-1/2 bg-white flex flex-col items-center justify-center p-4">
       <div class="w-full max-w-sm p-6 bg-sky-200 rounded-xl shadow-lg">
         <h2 class="text-2xl font-bold text-center mb-6 text-gray-700">Daftar</h2>
-        <form class="space-y-4">
-            <input class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+        <form class="space-y-4" method="post" action="{{ route('daftar.submit') }}">
+          @csrf
+            <input name='name'class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" 
               placeholder="Nama Lengkap" type="text" />
-            <input class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+            <input name="username" class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" 
               placeholder="Username" type="text" />
             <div class="relative">
-              <input class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+              <input name="password" class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" 
                 placeholder="Masukkan Password" type="password" id="password" />
               <i class="fas fa-eye-slash absolute right-3 top-4 text-gray-500 cursor-pointer" 
                  onclick="togglePassword('password')" id="password-icon"></i>

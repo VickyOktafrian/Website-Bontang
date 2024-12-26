@@ -19,7 +19,13 @@
 <body class="h-full bg-gray-100">
 
     {{-- Header section --}}
-    <x-header_blm_login class="fixed"></x-header_blm_login>
+    @auth
+        <!-- Header for logged in users -->
+        <x-header_sdh_login class="fixed"></x-header_sdh_login>
+    @else
+        <!-- Header for non-logged in users -->
+        <x-header_blm_login class="fixed"></x-header_blm_login>
+    @endauth
     
     <main class="mt-28">
 
@@ -29,7 +35,6 @@
             </div>
         @endif
     
-
         <!-- Main Content -->
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             {{ $slot }}
