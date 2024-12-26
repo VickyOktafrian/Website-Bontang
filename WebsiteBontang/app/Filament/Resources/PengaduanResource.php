@@ -37,21 +37,40 @@ class PengaduanResource extends Resource
                 ->searchable(),
 
                 Tables\Columns\TextColumn::make('keterangan')
-    ->label('Keterangan')
-    ->sortable()
-    ->searchable()
-    ->getStateUsing(function (Pengaduan $record) {
-        // Strip out HTML tags and limit the length of the text
-        $keterangan = strip_tags($record->keterangan);
-        return Str::limit($keterangan, 50); // Show only the first 50 characters
-    })
-    ->extraAttributes(function (Pengaduan $record) {
-        // Add a custom click event to show the full description in a modal/card
-        return [
-            'data-bs-toggle' => 'modal',
-            'data-bs-target' => '#keteranganModal' . $record->id,
-        ];
-    }),
+                ->label('Keterangan')
+                ->sortable()
+                ->searchable()
+                ->getStateUsing(function (Pengaduan $record) {
+                    // Limit the length of the text and strip HTML tags
+                    return Str::limit(strip_tags($record->keterangan), 50); // Limit to 50 characters
+                })
+                ->extraAttributes(function (Pengaduan $record) {
+                    // Add a custom click event to show the full description in a modal/card
+                    return [
+                        'data-bs-toggle' => 'modal',
+                        'data-bs-target' => '#keteranganModal' . $record->id,
+                    ];
+                }),
+
+            Tables\Columns\TextColumn::make('keterangan')
+                ->label('Keterangan')
+                ->sortable()
+                ->searchable()
+                ->getStateUsing(function (Pengaduan $record) {
+                    // Limit the length of the text and strip HTML tags
+                    return Str::limit(strip_tags($record->keterangan), 50); // Limit to 50 characters
+                })
+                ->extraAttributes(function (Pengaduan $record) {
+                    // Make the entire row clickable and store additional data
+                    return [
+                        'class' => 'cursor-pointer',
+                        'data-id' => $record->id, // Store the record ID
+                        'data-user' => $record->user->name, // Store user name
+                        'data-jenis_laporan' => $record->jenis_laporan, // Store jenis laporan
+                        'data-keterangan' => $record->keterangan, // Store full keterangan
+                        'data-bukti' => json_encode($record->bukti), // Store image paths as JSON
+                    ];
+                }),
             
             
      
@@ -84,8 +103,8 @@ class PengaduanResource extends Resource
                 ->sortable()
                 ->dateTime('d M Y, H:i'),
         ])
-        ->filters([ /* Tambahkan filter jika diperlukan */ ])
-        ->actions([ /* Tambahkan aksi jika diperlukan */ ])
+        ->filters([  ])
+        ->actions([  ])
         ->bulkActions([
             Tables\Actions\DeleteBulkAction::make(),
         ]);
@@ -104,8 +123,8 @@ class PengaduanResource extends Resource
     {
         return [
             'index' => Pages\ListPengaduans::route('/'),
-            'create' => Pages\CreatePengaduan::route('/create'),
-            'edit' => Pages\EditPengaduan::route('/{record}/edit'),
+            // 'create' => Pages\CreatePengaduan::route('/create'),
+            // 'edit' => Pages\EditPengaduan::route('/{record}/edit'),
         ];
     }
 }
