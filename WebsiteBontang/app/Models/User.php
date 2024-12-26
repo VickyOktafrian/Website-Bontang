@@ -3,9 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Pengaduan;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -22,7 +23,9 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
-        'role'
+        'role',
+        'foto_profil',
+      
     ];
 
     /**
@@ -46,5 +49,9 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function pengaduan()
+    {
+        return $this->hasMany(Pengaduan::class);
     }
 }

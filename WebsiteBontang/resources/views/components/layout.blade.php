@@ -18,12 +18,11 @@
 </head>
 <body class="h-full bg-gray-100">
 
-    {{-- Header section --}}
     @auth
-        <!-- Header for logged in users -->
+        {{-- Header untuk pengguna yang sudah login --}}
         <x-header_sdh_login class="fixed"></x-header_sdh_login>
     @else
-        <!-- Header for non-logged in users -->
+        {{-- Header untuk pengguna yang belum login --}}
         <x-header_blm_login class="fixed"></x-header_blm_login>
     @endauth
     

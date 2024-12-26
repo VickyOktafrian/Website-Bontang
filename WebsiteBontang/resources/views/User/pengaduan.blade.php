@@ -95,43 +95,47 @@
   <div class="flex justify-center items-start min-h-screen bg-gray-100 pt-8">
     <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-2xl">
       <h1 class="text-center text-xl font-bold mb-4">LAYANAN PENGADUAN</h1>
-
-      <div class="mb-4">
-        <label class="block text-gray-700 font-bold mb-2">Upload File</label>
-        <div class="border-2 border-dashed border-gray-300 p-4 text-center rounded-xl"
-             ondragover="handleDragOver(event)"
-             ondragleave="handleDragLeave(event)"
-             ondrop="handleDrop(event)">
-          <i class="fas fa-upload text-2xl text-gray-400 mb-2"></i>
-          <p>Seret dan Taruh Sini</p>
-          <p>atau <a class="text-blue-500 cursor-pointer" onclick="openFileDialog()">Cari File</a></p>
-          <!-- File input element (hidden, triggered by Cari File link) -->
-          <input type="file" id="file_input" class="mt-2 hidden" name="file_upload" multiple onchange="handleFileUpload(event)"/>
+      <form action="{{ route('pengaduan.submit') }}" method="post" enctype="multipart/form-data">
+        @csrf
+        <div class="mb-4" name='bukti'>
+          <label class="block text-gray-700 font-bold mb-2">Upload File</label>
+          <div class="border-2 border-dashed border-gray-300 p-4 text-center rounded-xl"
+               ondragover="handleDragOver(event)"
+               ondragleave="handleDragLeave(event)"
+               ondrop="handleDrop(event)">
+            <i class="fas fa-upload text-2xl text-gray-400 mb-2"></i>
+            <p>Seret dan Taruh Sini</p>
+            <p>atau <a class="text-blue-500 cursor-pointer" onclick="openFileDialog()">Cari File</a></p>
+            <!-- File input element (hidden, triggered by Cari File link) -->
+            <input type="file" id="file_input" class="mt-2 hidden" name="bukti[]" multiple onchange="handleFileUpload(event)"/>
+          </div>
         </div>
-      </div>
 
-      <div id="fileListContainer" class="flex flex-wrap mb-4">
-        <!-- Uploaded files will be shown here -->
-      </div>
+        <div id="fileListContainer" class="flex flex-wrap mb-4">
+          <!-- Uploaded files will be shown here -->
+        </div>
 
-      <div class="mb-4">
-        <label class="block text-gray-700 font-bold mb-2">Keterangan</label>
-        <select class="w-full border border-gray-300 p-2 rounded-xl">
-          <option value="" disabled selected>Pilih Keterangan</option>
-          <option value="Pengaduan Teknis">Pengaduan Teknis</option>
-          <option value="Pengaduan Administratif">Pengaduan Administratif</option>
-          <option value="Pengaduan Umum">Pengaduan Umum</option>
-          <option value="Lainnya">Lainnya</option>
-        </select>
-      </div>
-      <div class="mb-4 z-0">
-        <textarea id="editor" name="editor"></textarea>
-      </div>
+        <div class="mb-4" name='jenis_laporan'>
+          <label class="block text-gray-700 font-bold mb-2">Jenis Laporan</label>
+          <select class="w-full border border-gray-300 p-2 rounded-xl" name="jenis_laporan">
+            <option value="" disabled selected>Pilih Jenis Laporan</option>
+            <option value="Pengaduan Teknis">Pengaduan Teknis</option>
+            <option value="Pengaduan Administratif">Pengaduan Administratif</option>
+            <option value="Pengaduan Umum">Pengaduan Umum</option>
+            <option value="Lainnya">Lainnya</option>
+          </select>
+        </div>
 
-      <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl">
-        Submit
-      </button>
+        <div class="mb-4 z-0">
+          <textarea id="editor" name="keterangan"></textarea>
+        </div>
+
+        <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl">
+          Submit
+        </button>
+      </form>
     </div>
   </div>
 </x-layout>
+
 

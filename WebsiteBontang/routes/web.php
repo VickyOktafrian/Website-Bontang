@@ -4,6 +4,7 @@ use App\Http\Controllers\BeritaController;
 
 use App\Http\Controllers\LamanBeritaController;
 use App\Http\Controllers\PariwisataController;
+use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\WisataController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarouselController;
@@ -22,9 +23,8 @@ Route::post('/logout', [AuthController::class,'logout'])->name('logout');
 
 
 // Route 4: Pengaduan
-Route::get('/pengaduan', function () {
-    return view('user.pengaduan', ['title' => 'Pengaduan']);
-})->name('pengaduan');
+Route::get('/pengaduan',[PengaduanController::class,'showPengaduan'])->name('pengaduan.tampil');
+Route::post('/pengaduan/submit',[PengaduanController::class,'submitPengaduan'])->name('pengaduan.submit');
 
 // Route 5: Wisata
 Route::get('/wisata/{slug}', [WisataController::class,'index'])
