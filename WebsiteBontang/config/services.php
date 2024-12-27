@@ -28,6 +28,7 @@ return [
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
         'redirect' => env('FACEBOOK_REDIRECT'),
     ],
+    
 
     'resend' => [
         'key' => env('RESEND_KEY'),

@@ -48,4 +48,6 @@ class PengaduanController extends Controller
 
         return redirect()->route('pengaduan.tampil')->with('success', 'Pengaduan berhasil disubmit!');
     }
+   
+
 }

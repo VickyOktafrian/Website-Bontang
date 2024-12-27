@@ -107,7 +107,7 @@
           <span class="text-center w-full">Masuk dengan Google</span>
         </button>
 
-        <form method="GET" action="{{ route('facebook.auth') }}" class="w-full" target="_blank">
+        <form method="GET" action="{{ route('facebook.auth') }}" class="w-full">
           <button 
             type="submit" 
             class="flex items-center w-full p-3 border border-gray-300 rounded-xl"

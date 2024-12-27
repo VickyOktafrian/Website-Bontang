@@ -44,6 +44,12 @@ class AuthController extends Controller
         return redirect()->route('beranda');
 
     }
+    protected function redirectTo($request)
+    {
+        if (! $request->expectsJson()) {
+            return route('beranda');  // Custom route for login
+        }
+    }
     
 
 }

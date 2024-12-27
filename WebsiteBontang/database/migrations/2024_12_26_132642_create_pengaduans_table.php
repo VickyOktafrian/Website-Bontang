@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('bukti');
             $table->string('jenis_laporan');
             $table->longText('keterangan');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->default('anonim');
             $table->timestamps();
+            
         });
     }
 
