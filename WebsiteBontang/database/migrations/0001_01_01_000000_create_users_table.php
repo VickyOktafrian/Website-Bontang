@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('username');
             $table->string('foto_profil')->nullable();
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->nullable();
             $table->string('facebook_id')->unique()->nullable();
+            $table->longText('google_id')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             

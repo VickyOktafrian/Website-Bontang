@@ -102,11 +102,22 @@
       
       <p class="mt-2">Atau masuk dengan</p>
       <div class="flex flex-col space-y-2 mt-4 w-full max-w-sm">
-        <button class="flex items-center w-full p-3 border border-gray-300 rounded-xl">
-          <img alt="Google logo" class="mr-2" height="20" src="https://cdn-icons-png.flaticon.com/128/300/300221.png" width="20" />
-          <span class="text-center w-full">Masuk dengan Google</span>
-        </button>
 
+        <form method="GET" action="{{ route('google.auth') }}" class="w-full">
+          <button 
+            type="submit" 
+            class="flex items-center w-full p-3 border border-gray-300 rounded-xl"
+          >
+            <img 
+              alt="Facebook logo" 
+              class="mr-2" 
+              height="20" 
+              src="https://cdn-icons-png.flaticon.com/128/300/300221.png" 
+              width="20" 
+            />
+            <span class="text-center w-full">Masuk dengan Google</span>
+          </button>
+        </form>
         <form method="GET" action="{{ route('facebook.auth') }}" class="w-full">
           <button 
             type="submit" 

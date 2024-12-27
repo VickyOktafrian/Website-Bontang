@@ -3,6 +3,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
 
 use App\Http\Controllers\FacebookController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\LamanBeritaController;
 use App\Http\Controllers\PariwisataController;
 use App\Http\Controllers\PengaduanController;
@@ -63,3 +64,5 @@ Route::get('/profil', function () {
 
 Route::get('auth/facebook',[FacebookController::class,'facebookpage'])->name('facebook.auth');
 Route::get('auth/facebook/callback',[FacebookController::class,'facebookredirect'])->name('facebook.callback');
+Route::get('auth/google',[GoogleController::class,'googlepage'])->name('google.auth');
+Route::get('auth/google/callback',[GoogleController::class,'googleredirect'])->name('google.callback');

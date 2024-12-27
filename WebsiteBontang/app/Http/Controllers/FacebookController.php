@@ -30,7 +30,7 @@ class FacebookController extends Controller
         if (!$user) {
             $user = User::create([
                 'name' => $facebookUser->getName(),
-                'username' => $facebookUser->getId(),  // Atur username dengan ID Facebook atau nama
+                'username' => $facebookUser->getName(),  // Atur username dengan ID Facebook atau nama
                 'email' => $facebookUser->getEmail(),
                 'facebook_id' => $facebookUser->getId(),
                 'foto_profil' => $facebookUser->getAvatar(),

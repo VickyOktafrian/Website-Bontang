@@ -26,6 +26,7 @@ class User extends Authenticatable
         'role',
         'foto_profil',
         'facebook_id',
+        'google_id',
       
     ];
 
