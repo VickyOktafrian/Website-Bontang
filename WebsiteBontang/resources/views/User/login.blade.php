@@ -107,10 +107,23 @@
           <span class="text-center w-full">Masuk dengan Google</span>
         </button>
 
-        <button class="flex items-center w-full p-3 border border-gray-300 rounded-xl">
-          <img alt="Facebook logo" class="mr-2" height="20" src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png" width="20" />
-          <span class="text-center w-full">Masuk dengan Facebook</span>
-        </button>          
+        <form method="GET" action="{{ route('facebook.auth') }}" class="w-full" target="_blank">
+          <button 
+            type="submit" 
+            class="flex items-center w-full p-3 border border-gray-300 rounded-xl"
+          >
+            <img 
+              alt="Facebook logo" 
+              class="mr-2" 
+              height="20" 
+              src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png" 
+              width="20" 
+            />
+            <span class="text-center w-full">Masuk dengan Facebook</span>
+          </button>
+        </form>
+        
+                
       </div>
     </div>
   </div>

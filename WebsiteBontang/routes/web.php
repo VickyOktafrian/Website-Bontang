@@ -2,6 +2,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
 
+use App\Http\Controllers\FacebookController;
 use App\Http\Controllers\LamanBeritaController;
 use App\Http\Controllers\PariwisataController;
 use App\Http\Controllers\PengaduanController;
@@ -59,3 +60,6 @@ Route::get('/belanja', function () {
 Route::get('/profil', function () {
     return view('user.profil', ['title' => 'Profil']);
 })->name('profil');
+
+Route::get('auth/facebook',[FacebookController::class,'facebookpage'])->name('facebook.auth');
+Route::get('auth/facebook/callback',[FacebookController::class,'facebookredirect'])->name('facebook.callback');
