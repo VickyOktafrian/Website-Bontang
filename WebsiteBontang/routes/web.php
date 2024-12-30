@@ -2,7 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
-
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\WisataController;
@@ -74,5 +74,9 @@ Route::post('/cart/update/{barang}', [CartController::class, 'update'])->name('c
 Route::post('/cart/remove/{barang}', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
-Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout.process');
+
+
+Route::get('/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
+Route::get('/order/success/{id}', [OrderController::class, 'success'])->name('order.success');
+

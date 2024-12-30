@@ -18,7 +18,16 @@
 </head>
 <body>
     <header>
-        <x-navbar-market></x-navbar-market>
+        @auth
+        {{-- Header untuk pengguna yang sudah login --}}
+        <x-navbar-market class="fixed"></x-navbar-market>
+    @else
+        {{-- Arahkan ke halaman login --}}
+        <script>
+            window.location.href = "{{ route('login.tampil') }}";
+        </script>
+    @endauth
+    
     </header>
     <main class="mt-28">
         {{ $slot }}

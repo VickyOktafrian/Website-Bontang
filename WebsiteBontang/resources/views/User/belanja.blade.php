@@ -41,14 +41,18 @@
 
                         <div class="flex flex-wrap gap-4 mt-4">
                             <!-- Tombol Beli Sekarang -->
-                            <button type="button" class="min-w-[200px] px-4 py-3 bg-gray-800 hover:bg-gray-900 text-white text-sm font-semibold rounded-md">Beli Sekarang</button>
+<form action="{{ route('order.store', $barang->id) }}" method="post">
+    @csrf
+    <button type="submit" class="min-w-[200px] px-4 py-3 bg-gray-800 hover:bg-gray-900 text-white text-sm font-semibold rounded-md">Beli Sekarang</button>
+</form>
 
-                            <!-- Form Masukkan Keranjang -->
-                            <form action="{{ route('cart.add', $barang->id) }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="quantity" id="quantity-input" value="1">
-                                <button type="submit" class="min-w-[200px] px-4 py-2.5 border border-gray-800 bg-transparent hover:bg-gray-50 text-gray-800 text-sm font-semibold rounded-md">Masukkan Keranjang</button>
-                            </form>
+<!-- Form Masukkan Keranjang -->
+<form action="{{ route('cart.add', $barang->id) }}" method="POST">
+    @csrf
+    <input type="hidden" name="quantity" id="quantity-input" value="1">
+    <button type="submit" class="min-w-[200px] px-4 py-2.5 border border-gray-800 bg-transparent hover:bg-gray-50 text-gray-800 text-sm font-semibold rounded-md">Masukkan Keranjang</button>
+</form>
+
                         </div>
                     </div>
                 </div>

@@ -49,6 +49,13 @@
                     <button type="submit" class="btn btn-danger">Kosongkan Keranjang</button>
                 </form>
             </div>
+
+            <!-- Checkout Button -->
+            <div class="mt-6 text-center">
+                <form action="{{ route('order.checkout') }}" method="GET">
+                    <button type="submit" class="btn btn-primary px-6 py-2 text-white bg-blue-500 rounded shadow hover:bg-blue-600">Checkout</button>
+                </form>
+            </div>
         @else
             <p class="text-lg text-gray-600">Keranjang Anda kosong.</p>
         @endif
