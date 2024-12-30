@@ -1,17 +1,19 @@
 <?php
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BelanjaController;
-use App\Http\Controllers\BeritaController;
-
-use App\Http\Controllers\FacebookController;
-use App\Http\Controllers\GoogleController;
-use App\Http\Controllers\LamanBeritaController;
-use App\Http\Controllers\PariwisataController;
-use App\Http\Controllers\PengaduanController;
-use App\Http\Controllers\PortalBelanjaController;
-use App\Http\Controllers\WisataController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
+
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\WisataController;
+use App\Http\Controllers\BelanjaController;
 use App\Http\Controllers\CarouselController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\FacebookController;
+use App\Http\Controllers\PengaduanController;
+use App\Http\Controllers\PariwisataController;
+use App\Http\Controllers\LamanBeritaController;
+use App\Http\Controllers\PortalBelanjaController;
 
 // Route 1: Beranda
 Route::get('/', [CarouselController::class, 'index'])->name(name: 'beranda');
@@ -64,3 +66,13 @@ Route::get('auth/facebook',[FacebookController::class,'facebookpage'])->name('fa
 Route::get('auth/facebook/callback',[FacebookController::class,'facebookredirect'])->name('facebook.callback');
 Route::get('auth/google',[GoogleController::class,'googlepage'])->name('google.auth');
 Route::get('auth/google/callback',[GoogleController::class,'googleredirect'])->name('google.callback');
+
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add/{barang}', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/update/{barang}', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/remove/{barang}', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout.process');

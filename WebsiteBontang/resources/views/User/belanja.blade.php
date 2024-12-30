@@ -7,15 +7,12 @@
                         <div class="lg:h-[560px]">
                             <img src="{{ asset('storage/' . $barang->gambar) }}" alt="{{ $barang->nama }}" class="lg:w-11/12 w-full h-full rounded-md object-cover object-top" />
                         </div>
-
-                        
                     </div>
 
                     <div>
                         <div class="flex flex-wrap items-start gap-4">
                             <div>
                                 <h2 class="text-2xl font-bold text-gray-800">{{ $barang->nama }}</h2>
-                               
                             </div>
                         </div>
 
@@ -23,7 +20,7 @@
 
                         <div class="flex flex-wrap gap-4 items-start">
                             <div>
-                                <p class="text-gray-800 text-4xl font-bold">Rp {{number_format($barang->harga, 0, ',', '.')  }}</p>
+                                <p class="text-gray-800 text-4xl font-bold">Rp {{ number_format($barang->harga, 0, ',', '.') }}</p>
                                 <p class="text-sm text-gray-500 mt-2">Stok: {{ $barang->stok }}</p>
                             </div>
                         </div>
@@ -43,8 +40,15 @@
                         </div>
 
                         <div class="flex flex-wrap gap-4 mt-4">
+                            <!-- Tombol Beli Sekarang -->
                             <button type="button" class="min-w-[200px] px-4 py-3 bg-gray-800 hover:bg-gray-900 text-white text-sm font-semibold rounded-md">Beli Sekarang</button>
-                            <button type="button" class="min-w-[200px] px-4 py-2.5 border border-gray-800 bg-transparent hover:bg-gray-50 text-gray-800 text-sm font-semibold rounded-md">Masukkan Keranjang</button>
+
+                            <!-- Form Masukkan Keranjang -->
+                            <form action="{{ route('cart.add', $barang->id) }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="quantity" id="quantity-input" value="1">
+                                <button type="submit" class="min-w-[200px] px-4 py-2.5 border border-gray-800 bg-transparent hover:bg-gray-50 text-gray-800 text-sm font-semibold rounded-md">Masukkan Keranjang</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -60,8 +64,6 @@
                         <h3 class="text-xl font-bold text-gray-800">Deskripsi Produk</h3>
                         <p class="text-sm text-gray-500 mt-4">{{ $barang->deskripsi }}</p>
                     </div>
-
-                 
                 </div>
             </div>
         </div>
@@ -75,11 +77,13 @@
         const totalPriceElement = document.getElementById('total-price');
         const decrementButton = document.getElementById('decrement');
         const incrementButton = document.getElementById('increment');
+        const quantityInputHidden = document.getElementById('quantity-input');
 
         function updateTotalPrice() {
             const quantity = parseInt(quantityInput.value);
             const totalPrice = quantity * pricePerUnit;
             totalPriceElement.textContent = `Rp ${totalPrice}`;
+            quantityInputHidden.value = quantity;
         }
 
         decrementButton.addEventListener('click', () => {
