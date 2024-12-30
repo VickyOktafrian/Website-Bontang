@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BelanjaController;
 use App\Http\Controllers\BeritaController;
 
 use App\Http\Controllers\FacebookController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\LamanBeritaController;
 use App\Http\Controllers\PariwisataController;
 use App\Http\Controllers\PengaduanController;
+use App\Http\Controllers\PortalBelanjaController;
 use App\Http\Controllers\WisataController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarouselController;
@@ -48,14 +50,10 @@ Route::get('/prakiraan-cuaca', function () {
 })->name('prakiraan-cuaca');
 
 // Route 9: Portal Belanja
-Route::get('/portal-belanja', function () {
-    return view('user.portal-belanja', ['title' => 'Portal Belanja']);
-})->name('portal-belanja');
+Route::get('/portal-belanja',[PortalBelanjaController::class,'index'])->name('portal-belanja');
 
 // Route 10: Belanja
-Route::get('/belanja', function () {
-    return view('user.belanja', ['title' => 'Belanja']);
-})->name('belanja');
+Route::get('/portal-belanja/{slug}',[BelanjaController::class,'index'])->name('belanja');
 
 // Route 11: Profil
 Route::get('/profil', function () {

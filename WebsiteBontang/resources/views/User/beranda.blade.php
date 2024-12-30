@@ -94,7 +94,7 @@
     </div>
     <div class="grid items-center justify-center mt-36 pb-20 bg-sky-200 w-full rounded-xl">
         <img class="mid" src="{{ asset('images/belanja.png') }}" alt="Belanja" />
-        <x-produk></x-produk>
+        <x-produk :barang="$barang" />
         <div class="col-span-full flex justify-center mt-8">
             <a
                 class="inline-block rounded-xl border border-sky-600 px-12 py-3 text-sm font-medium text-sky-600 hover:bg-sky-600 hover:text-white focus:outline-none focus:ring active:bg-sky-400"
