@@ -79,4 +79,7 @@ Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear')
 Route::get('/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
 Route::get('/order/success/{id}', [OrderController::class, 'success'])->name('order.success');
+Route::get('/orderan', [OrderController::class, 'listorderan'])->name('orderan');
+Route::put('/orders/{id}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+
 

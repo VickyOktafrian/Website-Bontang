@@ -118,5 +118,22 @@ class OrderController extends Controller
 
     return view('order.success', compact('order'));
 }
+public function listorderan()
+{
+    $orders = Order::with('orderItems.barang')
+        ->where('user_id', Auth::id())
+        ->get();
+
+    return view('order.orderan', compact('orders'));
+}
+public function updateStatus(Request $request, $id)
+{
+    $order = Order::findOrFail($id);
+    $order->status = $request->status;
+    $order->save(); // Pastikan disimpan ke database
+
+    return redirect()->back()->with('success', 'Status berhasil diperbarui.');
+}
+
 
 }
