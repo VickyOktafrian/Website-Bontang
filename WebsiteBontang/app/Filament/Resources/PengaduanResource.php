@@ -77,6 +77,7 @@ class PengaduanResource extends Resource
             
             // Menampilkan gambar bukti menggunakan TextColumn dan mengembalikan HTML
             Tables\Columns\TextColumn::make('bukti_gambar')
+            
     ->label('Bukti')
     ->getStateUsing(function (Pengaduan $record) {
         $buktiPaths = json_decode($record->bukti); // Ambil semua path gambar
