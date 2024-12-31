@@ -100,7 +100,7 @@ class OrderController extends Controller
         $snapToken = \Midtrans\Snap::getSnapToken($params);
 
         // Kosongkan keranjang
-        // session()->forget('cart');
+        session()->forget('cart');
         
         // Simpan snapToken di session untuk digunakan di checkout
         session()->put('snapToken', $snapToken);
