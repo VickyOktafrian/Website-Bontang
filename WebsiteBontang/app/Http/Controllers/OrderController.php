@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,14 +13,43 @@ class OrderController extends Controller
      * Menampilkan halaman checkout.
      */
     public function checkout()
-    {
-        $cart = session('cart', []);
-        $totalHarga = array_sum(array_map(function ($item) {
-            return $item['price'] * $item['quantity'];
-        }, $cart));
+{
+    $cart = session('cart', []);
+    $totalHarga = array_sum(array_map(function ($item) {
+        return $item['price'] * $item['quantity'];
+    }, $cart));
 
-        return view('order.checkout', compact('cart', 'totalHarga'));
+    // Initialize snapToken with null
+    $snapToken = null;
+
+    // If user is logged in, generate snapToken for Midtrans
+    if (Auth::check()) {
+        \Midtrans\Config::$serverKey = config('services.midtrans.server_key');
+        \Midtrans\Config::$isProduction = config('services.midtrans.is_production');
+        \Midtrans\Config::$isSanitized = config('services.midtrans.is_sanitized');
+        \Midtrans\Config::$is3ds = config('services.midtrans.is_3ds');
+
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => uniqid('order_'), // Generate unique order ID
+                'gross_amount' => $totalHarga,
+            ),
+            'customer_details' => array(
+                'first_name' => Auth::user()->name,
+                'email' => Auth::user()->email,
+            ),
+        );
+
+        // Get snapToken from Midtrans
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+
+        // Store snapToken in session
+        session()->put('snapToken', $snapToken);
     }
+    
+
+    return view('order.checkout', compact('cart', 'totalHarga', 'snapToken'));
+}
 
     /**
      * Proses menyimpan pesanan.
@@ -52,19 +80,43 @@ class OrderController extends Controller
             ]);
         }
 
-        // Kosongkan keranjang
-        session()->forget('cart');
+        \Midtrans\Config::$serverKey = config('services.midtrans.server_key');
+        \Midtrans\Config::$isProduction = config('services.midtrans.is_production');
+        \Midtrans\Config::$isSanitized = config('services.midtrans.is_sanitized');
+        \Midtrans\Config::$is3ds = config('services.midtrans.is_3ds');
 
-        return redirect()->route('order.success', $order->id)->with('success', 'Pesanan berhasil dibuat.');
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => $order->id,
+                'gross_amount' => $order->total_harga,
+            ),
+            'customer_details' => array(
+                'first_name' => Auth::user()->name,
+                'email' => Auth::user()->email,
+            ),
+        );
+        
+        // Dapatkan snapToken
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+
+        // Kosongkan keranjang
+        // session()->forget('cart');
+        
+        // Simpan snapToken di session untuk digunakan di checkout
+        session()->put('snapToken', $snapToken);
+
+        return redirect()->route('order.success', $order->id)
+            ->with('success', 'Pesanan berhasil dibuat.');
     }
 
     /**
      * Halaman sukses setelah checkout.
      */
     public function success($id)
-    {
-        $order = Order::with('orderItems')->findOrFail($id);
-        return view('order.success', compact('order'));
-    }
-    
+{
+    $order = Order::with('orderItems')->findOrFail($id);
+
+    return view('order.success', compact('order'));
+}
+
 }

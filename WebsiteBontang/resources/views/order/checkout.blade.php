@@ -38,11 +38,34 @@
 
                     <input type="hidden" name="total_harga" value="{{ $totalHarga }}">
 
-                    <button type="submit" class="w-full py-4 px-6 text-white bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg shadow-lg transform hover:scale-105 hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">Proses Pesanan</button>
+                    <button type="submit" id="pay-button" class="w-full py-4 px-6 text-white bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg shadow-lg transform hover:scale-105 hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">Proses Pesanan</button>
                 </form>
             @else
                 <p class="text-center text-gray-600">Keranjang belanja kosong.</p>
             @endif
         </div>
     </div>
+  
+
 </x-layout-market>
+
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('services.midtrans.client_key') }}"></script>
+<script type="text/javascript">
+    document.getElementById('pay-button').onclick = function () {
+        snap.pay('{{ $snapToken }}', {
+            onSuccess: function (result) {
+                alert("Pembayaran berhasil!");
+                console.log(result);
+            },
+            onPending: function (result) {
+                alert("Pembayaran tertunda!");
+                console.log(result);
+            },
+            onError: function (result) {
+                alert("Pembayaran gagal!");
+                console.log(result);
+            }
+        });
+    };
+</script>
+
