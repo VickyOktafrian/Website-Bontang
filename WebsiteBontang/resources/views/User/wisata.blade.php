@@ -14,7 +14,7 @@
             <!-- Text Wrapper -->
             <div class="flex flex-col p-6 md:px-8 lg:p-12">
                 <h2 class="text-2xl font-medium uppercase text-green-800 lg:text-4xl">{{ $wisata->judul }}</h2>
-                <div class="mt-4">
+                <div class="mt-4 text-base lg:text-lg">
                     {!! $wisata->isi !!}
                 </div>
             </div>
