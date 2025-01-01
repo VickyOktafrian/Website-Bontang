@@ -4,20 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengaduan;
 use Illuminate\Http\Request;
-
-namespace App\Http\Controllers;
-
-use App\Models\Pengaduan;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PengaduanController extends Controller
 {
+    // Menampilkan halaman pengaduan
     public function showPengaduan()
     {
         return view('user.pengaduan')->with('title', 'Pengaduan');
     }
 
+    // Menyimpan pengaduan yang diajukan oleh pengguna
     public function submitPengaduan(Request $request)
     {
         // Validasi data input
@@ -32,9 +29,12 @@ class PengaduanController extends Controller
         $paths = []; // Array untuk menyimpan path file yang diupload
         if ($request->hasFile('bukti')) {
             foreach ($request->file('bukti') as $file) {
+                // Generate nama file unik
                 $filename = time() . '_' . $file->getClientOriginalName();
+                // Simpan file ke storage/public
                 $path = $file->storeAs('uploads/bukti', $filename, 'public');
-                $paths[] = $path; // Simpan path file ke array
+                // Simpan path file ke array
+                $paths[] = $path;
             }
         }
 
@@ -48,6 +48,4 @@ class PengaduanController extends Controller
 
         return redirect()->route('pengaduan.tampil')->with('success', 'Pengaduan berhasil disubmit!');
     }
-   
-
 }

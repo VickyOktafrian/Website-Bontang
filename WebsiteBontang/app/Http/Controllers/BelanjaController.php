@@ -7,18 +7,16 @@ use Illuminate\Http\Request;
 
 class BelanjaController extends Controller
 {
+    // Menampilkan halaman detail barang berdasarkan slug
     public function index($slug) 
     {
-        // Cari barang berdasarkan slug
+        // Mencari barang berdasarkan slug yang diterima
         $barang = Barang::where('slug', $slug)->firstOrFail();
         
-        
-        
-        // Kembalikan pandangan dengan data barang dan tajuk
+        // Mengembalikan tampilan (view) dengan data barang dan judul halaman
         return view('user.belanja', [
-            
-            'barang' => $barang,
-            'title' => $barang->nama,
+            'barang' => $barang,  // Mengirim data barang ke tampilan
+            'title' => $barang->nama,  // Mengirim nama barang sebagai judul halaman
         ]);
     }
 }

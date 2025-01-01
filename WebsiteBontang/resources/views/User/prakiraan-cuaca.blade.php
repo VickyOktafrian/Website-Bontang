@@ -2,12 +2,15 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="container mx-auto p-6">
         <h1 class="text-3xl font-bold mb-4 text-center">Bontang, Kalimantan Timur</h1>
-        <p class="text-center text-lg mb-6">Bontang, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
+        <p class="text-center text-lg mb-6">{{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
+
         <div class="p-6 rounded-lg shadow-md text-center bg-white mb-8">
+            <h2 class="text-3xl font-bold mb-4 text-center">Cuaca Sekarang</h2>
+
+            <div class="text-sm text-gray-500 mt-2">{{ $timeOfDay }}</div>
+            <div class="text-sm text-gray-500 mt-2 mb-5" id="time">{{ $currentTimeWita }}</div>
             <div class="text-4xl font-bold">{{ round($weather['temperature']) }}°C</div>
             <div class="text-lg text-gray-700">{{ $weather['description'] }}</div>
-            <div class="text-sm text-gray-500 mt-2">{{ $timeOfDay }}</div>
-            <div class="text-sm text-gray-500 mt-2" id="time">{{ $currentTimeWita }}</div>
         </div>
 
         <!-- Cuaca Harian -->

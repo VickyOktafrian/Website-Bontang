@@ -10,130 +10,147 @@ use Illuminate\Support\Facades\Auth;
 class OrderController extends Controller
 {
     /**
-     * Menampilkan halaman checkout.
+     * Menampilkan halaman checkout dengan detail keranjang belanja.
      */
     public function checkout()
-{
-    $cart = session('cart', []);
-    $totalHarga = array_sum(array_map(function ($item) {
-        return $item['price'] * $item['quantity'];
-    }, $cart));
+    {
+        // Mendapatkan data keranjang belanja dari session
+        $cart = session('cart', []);
 
-    // Initialize snapToken with null
-    $snapToken = null;
+        // Menghitung total harga dari keranjang belanja
+        $totalHarga = array_sum(array_map(function ($item) {
+            return $item['price'] * $item['quantity']; // Mengalikan harga dan jumlah tiap item
+        }, $cart));
 
-    // If user is logged in, generate snapToken for Midtrans
-    if (Auth::check()) {
-        \Midtrans\Config::$serverKey = config('services.midtrans.server_key');
-        \Midtrans\Config::$isProduction = config('services.midtrans.is_production');
-        \Midtrans\Config::$isSanitized = config('services.midtrans.is_sanitized');
-        \Midtrans\Config::$is3ds = config('services.midtrans.is_3ds');
+        // Menyimpan snapToken untuk Midtrans
+        $snapToken = null;
 
-        $params = array(
-            'transaction_details' => array(
-                'order_id' => uniqid('order_'), // Generate unique order ID
-                'gross_amount' => $totalHarga,
-            ),
-            'customer_details' => array(
-                'first_name' => Auth::user()->name,
-                'email' => Auth::user()->email,
-            ),
-        );
+        // Jika pengguna sudah login, buat snapToken untuk transaksi Midtrans
+        if (Auth::check()) {
+            \Midtrans\Config::$serverKey = config('services.midtrans.server_key');
+            \Midtrans\Config::$isProduction = config('services.midtrans.is_production');
+            \Midtrans\Config::$isSanitized = config('services.midtrans.is_sanitized');
+            \Midtrans\Config::$is3ds = config('services.midtrans.is_3ds');
 
-        // Get snapToken from Midtrans
-        $snapToken = \Midtrans\Snap::getSnapToken($params);
+            // Mengonfigurasi parameter transaksi untuk Midtrans
+            $params = array(
+                'transaction_details' => array(
+                    'order_id' => uniqid('order_'), // Membuat ID pesanan unik
+                    'gross_amount' => $totalHarga, // Total harga dari keranjang belanja
+                ),
+                'customer_details' => array(
+                    'first_name' => Auth::user()->name, // Nama pengguna
+                    'email' => Auth::user()->email, // Email pengguna
+                ),
+            );
 
-        // Store snapToken in session
-        session()->put('snapToken', $snapToken);
+            // Mendapatkan snapToken dari Midtrans
+            $snapToken = \Midtrans\Snap::getSnapToken($params);
+
+            // Menyimpan snapToken di session
+            session()->put('snapToken', $snapToken);
+        }
+
+        // Mengembalikan tampilan checkout dengan data keranjang belanja, total harga, dan snapToken
+        return view('order.checkout', compact('cart', 'totalHarga', 'snapToken'));
     }
-    
-
-    return view('order.checkout', compact('cart', 'totalHarga', 'snapToken'));
-}
 
     /**
-     * Proses menyimpan pesanan.
+     * Menyimpan data pesanan setelah checkout.
      */
     public function store(Request $request)
     {
         $cart = session('cart', []);
+
+        // Jika keranjang belanja kosong, kembalikan ke halaman keranjang dengan pesan error
         if (empty($cart)) {
             return redirect()->route('cart.index')->with('error', 'Keranjang belanja kosong.');
         }
 
-        // Simpan data pesanan
+        // Simpan data pesanan ke dalam tabel 'orders'
         $order = Order::create([
-            'user_id' => Auth::id(),
-            'tanggal_order' => now(),
-            'total_harga' => $request->total_harga,
-            'status' => 'Pending',
-            'alamat_pengiriman' => $request->alamat_pengiriman,
+            'user_id' => Auth::id(), // ID pengguna yang melakukan pesanan
+            'tanggal_order' => now(), // Waktu pemesanan
+            'total_harga' => $request->total_harga, // Total harga pesanan
+            'status' => 'Pending', // Status pesanan (default adalah 'Pending')
+            'alamat_pengiriman' => $request->alamat_pengiriman, // Alamat pengiriman
         ]);
 
-        // Simpan data item pesanan
+        // Simpan data item pesanan ke dalam tabel 'order_items'
         foreach ($cart as $id => $item) {
             OrderItem::create([
-                'order_id' => $order->id,
-                'barang_id' => $id,
-                'jumlah' => $item['quantity'],
-                'harga_per_item' => $item['price'],
+                'order_id' => $order->id, // ID pesanan
+                'barang_id' => $id, // ID barang yang dipesan
+                'jumlah' => $item['quantity'], // Jumlah barang yang dipesan
+                'harga_per_item' => $item['price'], // Harga per item
             ]);
         }
 
+        // Konfigurasi Midtrans untuk transaksi pembayaran
         \Midtrans\Config::$serverKey = config('services.midtrans.server_key');
         \Midtrans\Config::$isProduction = config('services.midtrans.is_production');
         \Midtrans\Config::$isSanitized = config('services.midtrans.is_sanitized');
         \Midtrans\Config::$is3ds = config('services.midtrans.is_3ds');
 
+        // Parameter transaksi untuk Midtrans
         $params = array(
             'transaction_details' => array(
-                'order_id' => $order->id,
-                'gross_amount' => $order->total_harga,
+                'order_id' => $order->id, // ID pesanan
+                'gross_amount' => $order->total_harga, // Total harga pesanan
             ),
             'customer_details' => array(
-                'first_name' => Auth::user()->name,
-                'email' => Auth::user()->email,
+                'first_name' => Auth::user()->name, // Nama pengguna
+                'email' => Auth::user()->email, // Email pengguna
             ),
         );
-        
-        // Dapatkan snapToken
+
+        // Mendapatkan snapToken untuk pembayaran
         $snapToken = \Midtrans\Snap::getSnapToken($params);
 
-        // Kosongkan keranjang
+        // Mengosongkan keranjang setelah pesanan dibuat
         session()->forget('cart');
-        
-        // Simpan snapToken di session untuk digunakan di checkout
+
+        // Menyimpan snapToken di session
         session()->put('snapToken', $snapToken);
 
+        // Mengarahkan ke halaman sukses pesanan dengan pesan sukses
         return redirect()->route('order.success', $order->id)
             ->with('success', 'Pesanan berhasil dibuat.');
     }
 
     /**
-     * Halaman sukses setelah checkout.
+     * Menampilkan halaman sukses setelah checkout.
      */
     public function success($id)
-{
-    $order = Order::with('orderItems')->findOrFail($id);
+    {
+        $order = Order::with('orderItems')->findOrFail($id); // Mengambil data pesanan dan item terkait
 
-    return view('order.success', compact('order'));
-}
-public function listorderan()
-{
-    $orders = Order::with('orderItems.barang')
-        ->where('user_id', Auth::id())
-        ->get();
+        return view('order.success', compact('order')); // Menampilkan halaman sukses
+    }
 
-    return view('order.orderan', compact('orders'));
-}
-public function updateStatus(Request $request, $id)
-{
-    $order = Order::findOrFail($id);
-    $order->status = $request->status;
-    $order->save(); // Pastikan disimpan ke database
+    /**
+     * Menampilkan daftar pesanan pengguna.
+     */
+    public function listorderan()
+    {
+        // Mengambil semua pesanan milik pengguna yang sedang login
+        $orders = Order::with('orderItems.barang')
+            ->where('user_id', Auth::id()) // Mengambil pesanan berdasarkan user_id
+            ->get();
 
-    return redirect()->back()->with('success', 'Status berhasil diperbarui.');
-}
+        return view('order.orderan', compact('orders')); // Menampilkan daftar pesanan
+    }
 
+    /**
+     * Mengupdate status pesanan.
+     */
+    public function updateStatus(Request $request, $id)
+    {
+        $order = Order::findOrFail($id); // Mencari pesanan berdasarkan ID
+        $order->status = $request->status; // Update status pesanan
+        $order->save(); // Menyimpan perubahan status
 
+        // Mengarahkan kembali dengan pesan sukses
+        return redirect()->back()->with('success', 'Status berhasil diperbarui.');
+    }
 }

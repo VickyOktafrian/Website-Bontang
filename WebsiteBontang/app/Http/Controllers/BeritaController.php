@@ -8,71 +8,17 @@ use Illuminate\Http\Request;
 class BeritaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar berita berdasarkan slug.
      */
     public function index($slug) 
     {
-        // Cari berita berdasarkan slug
+        // Mencari berita berdasarkan slug yang diterima
         $berita = Berita::where('slug', $slug)->firstOrFail();
         
-        
-        
-        // Kembalikan pandangan dengan data berita dan tajuk
+        // Mengembalikan tampilan (view) dengan data berita dan judul
         return view('user.berita', [
-            
-            'berita' => $berita,
-            'title' => $berita->judul,
+            'berita' => $berita,  // Mengirim data berita ke tampilan
+            'title' => $berita->judul,  // Mengirim judul berita sebagai judul halaman
         ]);
-    }
-    
-
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

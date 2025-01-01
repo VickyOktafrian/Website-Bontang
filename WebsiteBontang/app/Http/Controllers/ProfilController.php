@@ -3,54 +3,52 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth; // For getting the authenticated user
+use Auth;
 use App\Models\User;
 
 class ProfilController extends \Illuminate\Routing\Controller
 {
+    // Konstruktor untuk memastikan pengguna sudah login sebelum mengakses halaman
     public function __construct()
     {
-        $this->middleware('auth'); // This ensures authentication is handled at the controller level
+        $this->middleware('auth'); // Middleware ini memastikan hanya pengguna yang terautentikasi yang dapat mengakses controller ini
     }
 
-    // Display the profile data
+    // Fungsi untuk menampilkan data profil pengguna
     public function show()
     {
-        $user = Auth::user(); // Get the authenticated user
-        return view('user.profil', compact('user'))->with('title','Profil'); // Pass user data to the view
+        $user = Auth::user(); // Mendapatkan data pengguna yang sedang login
+        return view('user.profil', compact('user'))->with('title', 'Profil'); // Mengirimkan data pengguna ke view 'user.profil'
     }
 
-    // Update the profile data
+    // Fungsi untuk mengupdate data profil pengguna
     public function update(Request $request)
-{
-    $user = Auth::user(); // Get the authenticated user
+    {
+        $user = Auth::user(); // Mendapatkan data pengguna yang sedang login
 
-    // Validate the request
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'username' => 'required|string|max:255|unique:users,username,' . $user->id,
-        'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-        'foto_profil' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Optional profile picture
-    ]);
+        // Validasi data yang dimasukkan oleh pengguna
+        $request->validate([
+            'name' => 'required|string|max:255', // Nama wajib diisi dan maksimal 255 karakter
+            'username' => 'required|string|max:255|unique:users,username,' . $user->id, // Username wajib unik
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id, // Email wajib unik
+            'foto_profil' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Foto profil opsional dengan validasi format gambar
+        ]);
 
-    // Update the user data
-    $user->name = $request->name;
-    $user->username = $request->username;
-    $user->email = $request->email;
+        // Update data pengguna
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
 
-    // Handle profile picture upload if exists
-    if ($request->hasFile('foto_profil')) {
-        $imagePath = $request->file('foto_profil')->store('profile_pictures', 'public');
-        $user->foto_profil = $imagePath;
+        // Cek apakah ada foto profil yang di-upload, jika ada simpan di folder 'profile_pictures'
+        if ($request->hasFile('foto_profil')) {
+            $imagePath = $request->file('foto_profil')->store('profile_pictures', 'public'); // Menyimpan gambar dan mendapatkan path-nya
+            $user->foto_profil = $imagePath; // Menyimpan path gambar ke database
+        }
+
+        // Simpan data yang telah diperbarui
+        $user->save();
+
+        // Redirect kembali ke halaman edit profil dengan pesan sukses
+        return redirect()->route('profil.edit')->with('success', 'Profile updated successfully!'); // Mengirimkan pesan sukses ke view
     }
-
-    // Save the updated user data
-    $user->save();
-
-
-    // Redirect back with success message
-    return redirect()->route('profil.edit')->with('success', 'Profile updated successfully!');
-}
-
-
 }

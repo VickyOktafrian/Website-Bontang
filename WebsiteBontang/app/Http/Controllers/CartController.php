@@ -7,81 +7,109 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    /**
+     * Menambahkan produk ke dalam keranjang belanja.
+     */
     public function add(Request $request, Barang $barang)
-{
-    $cart = session()->get('cart', []);
-    
-    // Mengambil jumlah produk dari request
-    $quantity = $request->input('quantity', 1);
-    
-    // Validasi jumlah produk
-    if ($quantity < 1 || $quantity > $barang->stok) {
-        return redirect()->back()->with('error', 'Jumlah produk tidak valid!');
+    {
+        // Mengambil data keranjang dari session, atau membuat keranjang kosong jika tidak ada
+        $cart = session()->get('cart', []);
+        
+        // Mengambil jumlah produk dari request (default 1 jika tidak ada)
+        $quantity = $request->input('quantity', 1);
+        
+        // Validasi jumlah produk agar tidak kurang dari 1 dan tidak melebihi stok
+        if ($quantity < 1 || $quantity > $barang->stok) {
+            return redirect()->back()->with('error', 'Jumlah produk tidak valid!');
+        }
+
+        // Jika produk sudah ada di keranjang, tambahkan jumlahnya
+        if (isset($cart[$barang->id])) {
+            $cart[$barang->id]['quantity'] += $quantity;
+        } else {
+            // Jika produk belum ada, tambahkan produk baru ke keranjang
+            $cart[$barang->id] = [
+                'name' => $barang->nama,
+                'price' => $barang->harga,
+                'quantity' => $quantity,
+                'image' => $barang->gambar,
+            ];
+        }
+
+        // Simpan keranjang ke session
+        session()->put('cart', $cart);
+
+        // Kembali ke halaman keranjang dengan pesan sukses
+        return redirect()->route('cart.index')->with('success', 'Produk berhasil ditambahkan ke keranjang!');
     }
 
-    // Jika produk sudah ada di keranjang, tambahkan jumlahnya
-    if (isset($cart[$barang->id])) {
-        $cart[$barang->id]['quantity'] += $quantity;
-    } else {
-        // Jika produk belum ada, tambahkan produk baru
-        $cart[$barang->id] = [
-            'name' => $barang->nama,
-            'price' => $barang->harga,
-            'quantity' => $quantity,
-            'image' => $barang->gambar,
-        ];
+    /**
+     * Menampilkan halaman keranjang belanja.
+     */
+    public function index()
+    {
+        // Mengambil data keranjang dari session
+        $cart = session()->get('cart', []);
+
+        // Menampilkan halaman keranjang dengan data keranjang
+        return view('cart.index', compact('cart'));
     }
 
-    // Simpan kembali ke session
-    session()->put('cart', $cart);
+    /**
+     * Memperbarui jumlah produk dalam keranjang.
+     */
+    public function update(Request $request, Barang $barang)
+    {
+        // Mengambil data keranjang dari session
+        $cart = session()->get('cart', []);
 
-    return redirect()->route('cart.index')->with('success', 'Produk berhasil ditambahkan ke keranjang!');
-}
+        // Validasi jumlah produk
+        $quantity = $request->input('quantity', 1);
+        if ($quantity < 1 || $quantity > $barang->stok) {
+            return redirect()->route('cart.index')->with('error', 'Jumlah produk tidak valid!');
+        }
 
-    
-public function index()
-{
-    $cart = session()->get('cart', []);
+        // Memperbarui jumlah produk dalam keranjang
+        if (isset($cart[$barang->id])) {
+            $cart[$barang->id]['quantity'] = $quantity;
+        }
 
-    return view('cart.index', compact('cart'));
-}
-public function update(Request $request, Barang $barang)
-{
-    $cart = session()->get('cart', []);
+        // Simpan kembali keranjang ke session
+        session()->put('cart', $cart);
 
-    // Validate quantity
-    $quantity = $request->input('quantity', 1);
-    if ($quantity < 1 || $quantity > $barang->stok) {
-        return redirect()->route('cart.index')->with('error', 'Jumlah produk tidak valid!');
+        // Kembali ke halaman keranjang dengan pesan sukses
+        return redirect()->route('cart.index')->with('success', 'Keranjang berhasil diperbarui!');
     }
 
-    if (isset($cart[$barang->id])) {
-        $cart[$barang->id]['quantity'] = $quantity;
+    /**
+     * Menghapus produk dari keranjang.
+     */
+    public function remove(Barang $barang)
+    {
+        // Mengambil data keranjang dari session
+        $cart = session()->get('cart', []);
+
+        // Menghapus produk dari keranjang
+        if (isset($cart[$barang->id])) {
+            unset($cart[$barang->id]);
+        }
+
+        // Simpan kembali keranjang yang sudah diperbarui ke session
+        session()->put('cart', $cart);
+
+        // Kembali ke halaman keranjang dengan pesan sukses
+        return redirect()->route('cart.index')->with('success', 'Produk berhasil dihapus dari keranjang!');
     }
 
-    session()->put('cart', $cart);
+    /**
+     * Mengosongkan semua produk dalam keranjang.
+     */
+    public function clear()
+    {
+        // Menghapus semua data keranjang dari session
+        session()->forget('cart');
 
-    return redirect()->route('cart.index')->with('success', 'Keranjang berhasil diperbarui!');
-}
-
-public function remove(Barang $barang)
-{
-    $cart = session()->get('cart', []);
-
-    if (isset($cart[$barang->id])) {
-        unset($cart[$barang->id]);
+        // Kembali ke halaman keranjang dengan pesan sukses
+        return redirect()->route('cart.index')->with('success', 'Keranjang berhasil dikosongkan!');
     }
-
-    session()->put('cart', $cart);
-
-    return redirect()->route('cart.index')->with('success', 'Produk berhasil dihapus dari keranjang!');
-}
-
-public function clear()
-{
-    session()->forget('cart');
-
-    return redirect()->route('cart.index')->with('success', 'Keranjang berhasil dikosongkan!');
-}
-
 }

@@ -7,10 +7,13 @@ use Illuminate\Http\Request;
 
 class PariwisataController extends Controller
 {
-    public function index(){
-        $pariwisata = Wisata::orderBy('id', 'asc')->get();        
+    // Menampilkan data pariwisata dari database dan mengirimkannya ke view
+    public function index()
+    {
+        // Mengambil semua data pariwisata dari model Wisata dan mengurutkannya berdasarkan ID secara ascending
+        $pariwisata = Wisata::orderBy('id', 'asc')->get();
 
-        // Mengirim data carousel dan berita ke view
+        // Mengirim data pariwisata ke view 'components.pariwisata'
         return view('components.pariwisata', compact('pariwisata'));
     }
 }

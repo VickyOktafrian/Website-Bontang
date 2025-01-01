@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Berita;
 
-
 class LamanBeritaController extends Controller
 {
+    /**
+     * Menampilkan daftar berita dengan paginasi
+     */
     public function index()
     {
-
-        // Mengambil data berita
+        // Mengambil data berita, diurutkan berdasarkan ID secara ascending dan dipaginasi sebanyak 13 berita per halaman
         $berita = Berita::orderBy('id', 'asc')->paginate(13);        
 
-        // Mengirim data carousel dan berita ke view
-        return view('user.laman-berita', compact( 'berita'))->with('title', 'Laman Berita');
+        // Mengirimkan data berita ke view 'user.laman-berita' dengan judul 'Laman Berita'
+        return view('user.laman-berita', compact('berita'))->with('title', 'Laman Berita');
     }
 }

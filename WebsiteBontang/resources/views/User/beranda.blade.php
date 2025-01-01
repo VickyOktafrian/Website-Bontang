@@ -42,7 +42,7 @@
   <div class="card bg-base-100 h-[400px] md:h-[400px] shadow-xl rounded-xl ml-10 md:ml-10 mt-5 md:mt-0 relative overflow-hidden ">
     <a href="{{ '/prakiraan-cuaca' }}">
       <figure class="px-10 pt-10">
-        <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+        <img src="https://www.nabire.net/wp-content/uploads/2014/10/cuaca1.jpg"
           alt="Prakiraan Cuaca" class="rounded-xl h-[250px] w-[300px]" />
       </figure>
     </a>
