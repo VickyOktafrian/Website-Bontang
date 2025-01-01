@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\WisataController;
 use App\Http\Controllers\BelanjaController;
 use App\Http\Controllers\WeatherController;
@@ -57,9 +58,9 @@ Route::get('/portal-belanja',[PortalBelanjaController::class,'index'])->name('po
 Route::get('/portal-belanja/{slug}',[BelanjaController::class,'index'])->name('belanja');
 
 // Route 11: Profil
-Route::get('/profil', function () {
-    return view('user.profil', ['title' => 'Profil']);
-})->name('profil');
+Route::get('/profil', [ProfilController::class, 'show'])->name('profil.edit');
+Route::put('/profil/update', [ProfilController::class, 'update'])->name('profil.update');
+
 
 Route::get('auth/facebook',[FacebookController::class,'facebookpage'])->name('facebook.auth');
 Route::get('auth/facebook/callback',[FacebookController::class,'facebookredirect'])->name('facebook.callback');
