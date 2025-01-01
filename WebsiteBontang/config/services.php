@@ -52,6 +52,11 @@ return [
         'is_sanitized' => env('MIDTRANS_IS_SANITIZED', true),
         'is_3ds' => env('MIDTRANS_IS_3DS', true),
     ],
+    'openweathermap' => [
+        'key' => env('WEATHER_API_KEY'),
+        'url' => 'http://api.openweathermap.org/data/2.5',
+    ],
+    
     
 
 ];

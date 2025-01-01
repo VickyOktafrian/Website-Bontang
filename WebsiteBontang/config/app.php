@@ -27,6 +27,8 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
+    'timezone' => env('APP_TIMEZONE', 'Asia/Makassar'),
+
 
     /*
     |--------------------------------------------------------------------------

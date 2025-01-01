@@ -7,6 +7,7 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\WisataController;
 use App\Http\Controllers\BelanjaController;
+use App\Http\Controllers\WeatherController;
 use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FacebookController;
@@ -47,9 +48,7 @@ Route::get('/laman-berita/{slug}', [BeritaController::class,'index'])
 ->name('berita');
 
 // Route 8: Prakiraan Cuaca
-Route::get('/prakiraan-cuaca', function () {
-    return view('user.prakiraan-cuaca', ['title' => 'Prakiraan Cuaca']);
-})->name('prakiraan-cuaca');
+Route::get('/prakiraan-cuaca', [WeatherController::class, 'index'])->name('prakiraan-cuaca');
 
 // Route 9: Portal Belanja
 Route::get('/portal-belanja',[PortalBelanjaController::class,'index'])->name('portal-belanja');
