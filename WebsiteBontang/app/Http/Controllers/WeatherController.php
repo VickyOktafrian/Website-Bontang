@@ -2,114 +2,67 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use GuzzleHttp\Client;
+use App\Services\OpenMeteoService;
 
 class WeatherController extends Controller
 {
-    public function index(Request $request)
+    protected $openMeteoService;
+
+    public function __construct(OpenMeteoService $openMeteoService)
     {
-        // Get city from request or default to Bontang
-        $city = $request->input('city', 'Bontang');
-        $apiKey = config('services.openweathermap.key');
-        $baseUrl = config('services.openweathermap.url');
+        $this->openMeteoService = $openMeteoService;
+    }
 
-        // Fetch current weather data
-        $currentWeatherUrl = "{$baseUrl}/weather?q={$city}&appid={$apiKey}&units=metric";
-        // Fetch hourly forecast data
-        $forecastUrl = "{$baseUrl}/forecast?q={$city}&appid={$apiKey}&units=metric";
+    public function index()
+    {
+        $latitude = 0.1324; // Lokasi Bontang
+        $longitude = 117.4854;
 
-        $client = new Client();
+        $forecast = $this->openMeteoService->getForecast($latitude, $longitude);
 
-        try {
-            // Fetch current weather
-            $responseCurrent = $client->get($currentWeatherUrl);
-            $weatherData = json_decode($responseCurrent->getBody(), true);
+        // Menyusun data untuk mengirim ke view
+        $currentWeather = $forecast['current'];
+        $forecastData = $forecast['daily'];
+        $forecastNextDays = $forecast['nextDays'];
 
-            // Fetch hourly forecast
-            $responseForecast = $client->get($forecastUrl);
-            $forecastData = json_decode($responseForecast->getBody(), true);
-        } catch (\Exception $e) {
-            return view('user.prakiraan-cuaca', ['error' => 'Tidak dapat mengambil data cuaca.']);
+        // Pembulatan suhu
+        $currentWeather['temperature'] = round($currentWeather['temperature']);
+        foreach ($forecastData as $key => $dayForecast) {
+            $forecastData[$key]['temperature'] = round($dayForecast['temperature']);
         }
 
-        // Organize the current weather description
-        $description = strtolower($weatherData['weather'][0]['description']);
-        $weatherData['weather'][0]['description'] = $this->categorizeWeather($description);
-
-        // Get the current time in WITA timezone
-        $currentTimeWita = now()->setTimezone('Asia/Makassar')->format('H:i');
-
-        // Determine time of day based on current hour
-        $currentHour = now()->format('H');
-        $timeOfDay = '';
-        if ($currentHour >= 5 && $currentHour < 9) {
-            $timeOfDay = 'Pagi';
-        } elseif ($currentHour >= 9 && $currentHour < 15) {
-            $timeOfDay = 'Siang';
-        } elseif ($currentHour >= 15 && $currentHour < 18) {
-            $timeOfDay = 'Sore';
-        } elseif ($currentHour >= 18 && $currentHour < 22) {
-            $timeOfDay = 'Malam';
-        } else {
-            $timeOfDay = 'Dini Hari';
+        foreach ($forecastNextDays as $key => $dayForecast) {
+            $forecastNextDays[$key]['temperature'] = round($dayForecast['temperature']);
         }
 
-        // Organize forecast data by time of day
-        $forecast = [
-            'pagi' => [
-                'temp' => round($forecastData['list'][1]['main']['temp']),
-                'description' => $this->categorizeWeather($forecastData['list'][1]['weather'][0]['description']),
-            ],
-            'siang' => [
-                'temp' => round($forecastData['list'][5]['main']['temp']),
-                'description' => $this->categorizeWeather($forecastData['list'][5]['weather'][0]['description']),
-            ],
-            'sore' => [
-                'temp' => round($forecastData['list'][10]['main']['temp']),
-                'description' => $this->categorizeWeather($forecastData['list'][10]['weather'][0]['description']),
-            ],
-            'malam' => [
-                'temp' => round($forecastData['list'][15]['main']['temp']),
-                'description' => $this->categorizeWeather($forecastData['list'][15]['weather'][0]['description']),
-            ],
-            'diniHari' => [
-                'temp' => round($forecastData['list'][20]['main']['temp']),
-                'description' => $this->categorizeWeather($forecastData['list'][20]['weather'][0]['description']),
-            ]
-        ];
-
-        // Organize forecast data for the next 3 days
-        $forecastNextDays = [];
-        for ($i = 1; $i <= 3; $i++) {
-            $forecastNextDays[] = [
-                'date' => now()->addDays($i)->translatedFormat('d F Y'),
-                'temp' => round($forecastData['list'][$i * 8]['main']['temp']),
-                'description' => $this->categorizeWeather($forecastData['list'][$i * 8]['weather'][0]['description']),
-            ];
-        }
+        // Menentukan waktu berdasarkan jam
+        $timeOfDay = $this->getTimeOfDay();
+        $currentTimeWita = now('Asia/Makassar')->format('H:i:s');
 
         return view('user.prakiraan-cuaca', [
-            'weather' => $weatherData,
-            'forecast' => $forecast,
-            'forecastNextDays' => $forecastNextDays,
             'title' => 'Prakiraan Cuaca',
-            'currentTimeWita' => $currentTimeWita,
+            'weather' => $currentWeather,
+            'forecast' => $forecastData,
+            'forecastNextDays' => $forecastNextDays,
             'timeOfDay' => $timeOfDay,
+            'currentTimeWita' => $currentTimeWita,
         ]);
     }
 
-    // Function to categorize weather description
-    private function categorizeWeather($description)
+    private function getTimeOfDay()
     {
-        $description = strtolower($description);
-        if (strpos($description, 'clear') !== false) {
-            return 'Cerah';
-        } elseif (strpos($description, 'cloud') !== false) {
-            return 'Mendung';
-        } elseif (strpos($description, 'rain') !== false || strpos($description, 'shower') !== false) {
-            return 'Hujan';
+        $hour = now()->hour;
+
+        if ($hour >= 5 && $hour < 12) {
+            return 'Pagi';
+        } elseif ($hour >= 12 && $hour < 15) {
+            return 'Siang';
+        } elseif ($hour >= 15 && $hour < 18) {
+            return 'Sore';
+        } elseif ($hour >= 18 && $hour < 24) {
+            return 'Sore';
+        } else {
+            return 'Dini Hari';
         }
-        return 'Cerah'; // Default if not detected
     }
 }
