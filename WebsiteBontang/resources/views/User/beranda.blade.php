@@ -39,22 +39,18 @@
     </div>
     
   {{-- Cuaca  --}}
-    <div class="card bg-base-100 h-[400px] md:h-[400px] shadow-xl rounded-xl ml-10 md:ml-10 mt-5 md:mt-0 relative overflow-hidden">
-      <a href="{{ '/prakiraan-cuaca' }}">
-          <figure class="px-10 pt-10">
-              <img 
-                  src="{{ asset('images/cuaca/' . strtolower($weather['description']) . '.jpeg') }}" 
-                  alt="{{ $weather['description'] }}" 
-                  class="rounded-xl h-[250px] w-[300px] object-cover" 
-              />
-          </figure>
-      </a>
-      <div class="card-body items-center text-center mt-5 px-10">
-          <p class="font-bold text-lg">{{ round($weather['temperature']) }}°C</p>
-          <p class="text-gray-500">{{ $weather['description'] }}</p>
-          <p>Bontang, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
-      </div>
+  <div class="card bg-base-100 h-[400px] md:h-[400px] shadow-xl rounded-xl ml-10 md:ml-10 mt-5 md:mt-0 relative overflow-hidden ">
+    <a href="{{ '/prakiraan-cuaca' }}">
+      <figure class="px-10 pt-10">
+        <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+          alt="Prakiraan Cuaca" class="rounded-xl h-[250px] w-[300px]" />
+      </figure>
+    </a>
+    <div class="card-body items-center text-center mt-5 px-10">
+      <p>Bontang, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
   </div>
+  </div>
+</div>
   
 
 
