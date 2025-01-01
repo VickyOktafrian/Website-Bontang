@@ -7,23 +7,24 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Login Akun</title>
   <link rel="shortcut icon" href="{{ asset('images/icon.png') }}" type="image/x-icon">
-  
-  <!-- Link to Google Fonts for Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  
-  <!-- Link to Font Awesome for icons -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Custom Styles to apply Poppins font -->
   <style>
     body {
       font-family: 'Poppins', sans-serif;
     }
+    @media (max-width: 768px) {
+      .login-container {
+        flex-direction: column;
+      }
+      .login-container > div {
+        width: 100%;
+      }
+    }
   </style>
   
-  <!-- JavaScript for toggling password visibility -->
   <script>
     function togglePassword(id) {
       const passwordField = document.getElementById(id);
@@ -41,7 +42,7 @@
   </script>
 </head>
 
-<body class="h-screen">
+<body class="min-h-screen">
   @if(session('gagal'))
     <div class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 text-center" role="alert">
       <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -53,13 +54,13 @@
     </div>
   @endif
 
-  <div class="flex h-full">
+  <div class="flex flex-col md:flex-row min-h-screen login-container">
     <!-- Bagian kiri (biru) -->
-    <div class="w-1/2 bg-sky-200 flex flex-col items-center justify-center">
-      <img src="{{ asset('images/logo_bontang.png') }}" alt="Logo Bontang" class="h-20 w-auto mb-4" />
-      <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-40 w-auto mb-2" />
+    <div class="w-full md:w-1/2 bg-sky-200 flex flex-col items-center justify-center p-4 md:p-8">
+      <img src="{{ asset('images/logo_bontang.png') }}" alt="Logo Bontang" class="h-16 md:h-20 w-auto mb-4" />
+      <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-32 md:h-40 w-auto mb-2" />
       <img src="https://img.freepik.com/free-vector/teamwork-concept-landing-page_23-2148240860.jpg?ga=GA1.1.1604946464.1734012171&semt=ais_hybrid" 
-        alt="Banner" class="h-64 w-auto rounded-full mb-4" />
+        alt="Banner" class="h-48 md:h-64 w-auto rounded-full mb-4" />
       <p class="text-center">
         Website Bontang kita
         <br />
@@ -67,10 +68,10 @@
       </p>
     </div>
 
-    <!-- Bagian kanan (putih) dengan layout vertikal -->
-    <div class="w-1/2 bg-white flex flex-col items-center justify-center p-4">
-      <div class="w-full max-w-sm p-6 bg-sky-200 rounded-xl shadow-lg">
-        <h2 class="text-2xl font-bold text-center mb-6 mt-10 text-gray-700">Selamat Datang</h2>
+    <!-- Bagian kanan (putih) -->
+    <div class="w-full md:w-1/2 bg-white flex flex-col items-center justify-center p-4 md:p-8">
+      <div class="w-full max-w-sm p-4 md:p-6 bg-sky-200 rounded-xl shadow-lg">
+        <h2 class="text-xl md:text-2xl font-bold text-center mb-6 mt-6 md:mt-10 text-gray-700">Selamat Datang</h2>
         <form class="space-y-4" method="post" action="{{ route('login.submit') }}">
           @csrf
           <input name='username' class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" 
@@ -101,8 +102,7 @@
       </p>
       
       <p class="mt-2">Atau masuk dengan</p>
-      <div class="flex flex-col space-y-2 mt-4 w-full max-w-sm">
-
+      <div class="flex flex-col space-y-2 mt-4 w-full max-w-sm px-4">
         <form method="GET" action="{{ route('google.auth') }}" class="w-full">
           <button 
             type="submit" 
@@ -133,11 +133,8 @@
             <span class="text-center w-full">Masuk dengan Facebook</span>
           </button>
         </form>
-        
-                
       </div>
     </div>
   </div>
 </body>
-
 </html>

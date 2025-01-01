@@ -1,5 +1,3 @@
-
-
 <x-layout>
   <x-slot:title>{{ $title }}</x-slot:title>
   
@@ -55,90 +53,94 @@
 
 
 
-    <p class="mt-20">Bontang Terkini</p>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 justify-between">
-
+    <!-- News Section -->
+    <p class="text-2xl font-bold mt-10 mb-5">Bontang Terkini</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       @foreach ($berita as $item)
-          <article class="overflow-hidden rounded-xl shadow transition hover:shadow-lg m-5 bg-white">
-              <img alt="" src="{{ asset('storage/' . $item->thumbnail) }}" class="h-56 w-full object-cover" />
-              <div class=" p-4 sm:p-6">
-                  <time datetime="{{ $item->created_at->toDateString() }}" class="block text-xs text-gray-500">
-                      {{ $item->created_at->diffForHumans() }}
-                  </time>
-                 
-                      <h3 class="mt-0.5 text-lg text-gray-900">{{ $item->judul }}</h3>
-              
-                  
-                  <a href="{{ route('berita', $item->slug) }}" class="text-blue-500 text-sm mt-3 inline-block">Baca Selengkapnya</a>
-              </div>
-          </article>
+        <article class="bg-white rounded-xl shadow-lg overflow-hidden">
+          <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="" class="h-48 w-full object-cover">
+          <div class="p-4">
+            <time datetime="{{ $item->created_at->toDateString() }}" class="text-xs text-gray-500">
+              {{ $item->created_at->diffForHumans() }}
+            </time>
+            <h3 class="mt-2 text-lg text-gray-900">{{ $item->judul }}</h3>
+            <a href="{{ route('berita', $item->slug) }}" class="text-blue-500 text-sm mt-2 inline-block">Baca Selengkapnya</a>
+          </div>
+        </article>
       @endforeach
-  
-
-            
-        <div class="col-span-full flex justify-center">
-            <a
-                class="inline-block rounded-xl border border-sky-400 px-12 py-3 text-sm font-medium text-sky-400 hover:bg-sky-400 hover:text-white focus:outline-none focus:ring active:bg-sky-300"
-                href="{{ '/laman-berita' }}"
-            >
-                Info Lainnya
-            </a>
-        </div>
     </div>
-    
-    <div class="flex items-center justify-between">
-        <h1 class="text-6xl font-bold mr-20">Kuy, Liburan di Bontang!</h1>
-       
-        <x-pariwisata :pariwisata="$pariwisata" />
 
+    <div class="flex justify-center mt-8">
+      <a href="{{ '/laman-berita' }}" class="inline-block rounded-xl border border-sky-400 px-6 py-2 text-sm font-medium text-sky-400 hover:bg-sky-400 hover:text-white focus:outline-none focus:ring active:bg-sky-300">
+        Info Lainnya
+      </a>
     </div>
-    <div class="grid items-center justify-center mt-36 pb-20 bg-sky-200 w-full rounded-xl">
-        <img class="mid" src="{{ asset('images/belanja.png') }}" alt="Belanja" />
-        <x-produk :barang="$barang" />
-        <div class="col-span-full flex justify-center mt-8">
-            <a
-                class="inline-block rounded-xl border border-sky-600 px-12 py-3 text-sm font-medium text-sky-600 hover:bg-sky-600 hover:text-white focus:outline-none focus:ring active:bg-sky-400"
-                href="{{ '/portal-belanja' }}"
-            >
-                Jelajahi Lainnya
-            </a>
-        </div>
+
+    <!-- Tourism Section -->
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-5 mt-10">
+      <h1 class="text-3xl md:text-6xl font-bold">Kuy, Liburan di Bontang!</h1>
+      <x-pariwisata :pariwisata="$pariwisata" />
+    </div>
+
+    <!-- Shopping Section -->
+    <div class="mt-20 pb-20 bg-sky-200 rounded-xl px-4">
+      <img class="mx-auto" src="{{ asset('images/belanja.png') }}" alt="Belanja">
+      <x-produk :barang="$barang" />
+      <div class="flex justify-center mt-8">
+        <a href="{{ '/portal-belanja' }}" class="inline-block rounded-xl border border-sky-600 px-6 py-2 text-sm font-medium text-sky-600 hover:bg-sky-600 hover:text-white focus:outline-none focus:ring active:bg-sky-400">
+          Jelajahi Lainnya
+        </a>
+      </div>
     </div>
 
     <div class="grid items-center justify-center mt-20 p-5 bg-sky-400 w-full rounded-xl">
-        <h1 class="text-white text-center text-xl font-bold mb-8">Pelayanan Kota Bontang</h1>
-        <div class="grid grid-cols-4 gap-8">
-          <!-- Left Section -->
-          <div class="col-span-3">
-            <div class="bg-white rounded-full flex justify-between items-center p-4 mb-4 shadow-md">
-              <span class="text-sky-800 ">1. Administrasi Kependudukan</span>
-              <a href="https://disdukcapil.bontangkota.go.id/index.php/layanan-online" target="blank"><button class="bg-yellow-400 text-white rounded-full px-6 py-2">Kunjungi Laman</button></a>
-            </div>
-            <div class="bg-white rounded-full flex justify-between items-center p-4 mb-4 shadow-md">
-              <span class="text-sky-800">2. Polres Bontang</span>
-              <a href="https://polresbontang.com/" target="blank"><button class="bg-yellow-400 text-white rounded-full px-6 py-2">Kunjungi Laman</button></a>
-            </div>
-            <div class="bg-white rounded-full flex justify-between items-center p-4 mb-4 shadow-md">
-              <span class="text-sky-800">3. Pemadam Kebakaran</span>
-              <a href="https://sippn.menpan.go.id/instansi/178429/pemerintah-kota-bontang/dinas-pemadam-kebakaran-dan-penyelamatan" target="blank"><button class="bg-yellow-400 text-white rounded-full px-6 py-2">Kunjungi Laman</button></a>
-            </div>
-            <div class="bg-white rounded-full flex justify-between items-center p-4 mb-4 shadow-md">
-              <span class="text-sky-800">4. PDAM</span>
-              <a href="https://www.perumdatirtataman.com/"><button class="bg-yellow-400 text-white rounded-full px-6 py-2" target="blank">Kunjungi Laman</button></a>
-            </div>
-            <div class="bg-white rounded-full flex justify-between items-center p-4 mb-4 shadow-md">
-              <span class="text-sky-800">5. PLN</span>
-              <a href="https://www.plnipservices.co.id/our-portofolio/suplai-energi-ptmg-tarakan-kalimantan-timur" target="blank"><button class="bg-yellow-400 text-white rounded-full px-6 py-2">Kunjungi Laman</button></a>
-            </div>
+      <h1 class="text-white text-center text-xl font-bold mb-8">Pelayanan Kota Bontang</h1>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <!-- Left Section -->
+        <div class="col-span-3 md:col-span-3">
+          <div class="bg-white rounded-full flex flex-col md:flex-row justify-between items-center p-4 mb-4 shadow-md transition-transform transform hover:scale-105 hover:shadow-lg">
+            <span class="text-sky-800  transition-colors">1. Administrasi Kependudukan</span>
+            <a href="https://disdukcapil.bontangkota.go.id/index.php/layanan-online" target="blank">
+              <button class="bg-yellow-400 text-white rounded-full px-6 py-2 hover:bg-yellow-500 hover:shadow-md transition-all">Kunjungi Laman</button>
+            </a>
           </div>
-          <!-- Right Section -->
-          <div class="col-span-1 flex justify-center align-center items-start">
-            <a href="{{ '/pengaduan' }}"><div class="bg-white rounded-xl p-6 shadow-md w-full text-center">
-              <span class="text-black font-bold">PENGADUAN</span>
-            </div></a>
+          <div class="bg-white rounded-full flex flex-col md:flex-row justify-between items-center p-4 mb-4 shadow-md transition-transform transform hover:scale-105 hover:shadow-lg">
+            <span class="text-sky-800  transition-colors">2. Polres Bontang</span>
+            <a href="https://polresbontang.com/" target="blank">
+              <button class="bg-yellow-400 text-white rounded-full px-6 py-2 hover:bg-yellow-500 hover:shadow-md transition-all">Kunjungi Laman</button>
+            </a>
+          </div>
+          <div class="bg-white rounded-full flex flex-col md:flex-row justify-between items-center p-4 mb-4 shadow-md transition-transform transform hover:scale-105 hover:shadow-lg">
+            <span class="text-sky-800  transition-colors">3. Pemadam Kebakaran</span>
+            <a href="https://sippn.menpan.go.id/instansi/178429/pemerintah-kota-bontang/dinas-pemadam-kebakaran-dan-penyelamatan" target="blank">
+              <button class="bg-yellow-400 text-white rounded-full px-6 py-2 hover:bg-yellow-500 hover:shadow-md transition-all">Kunjungi Laman</button>
+            </a>
+          </div>
+          <div class="bg-white rounded-full flex flex-col md:flex-row justify-between items-center p-4 mb-4 shadow-md transition-transform transform hover:scale-105 hover:shadow-lg">
+            <span class="text-sky-800  transition-colors">4. PDAM</span>
+            <a href="https://www.perumdatirtataman.com/">
+              <button class="bg-yellow-400 text-white rounded-full px-6 py-2 hover:bg-yellow-500 hover:shadow-md transition-all">Kunjungi Laman</button>
+            </a>
+          </div>
+          <div class="bg-white rounded-full flex flex-col md:flex-row justify-between items-center p-4 mb-4 shadow-md transition-transform transform hover:scale-105 hover:shadow-lg">
+            <span class="text-sky-800  transition-colors">5. PLN</span>
+            <a href="https://www.plnipservices.co.id/our-portofolio/suplai-energi-ptmg-tarakan-kalimantan-timur" target="blank">
+              <button class="bg-yellow-400 text-white rounded-full px-6 py-2 hover:bg-yellow-500 hover:shadow-md transition-all">Kunjungi Laman</button>
+            </a>
           </div>
         </div>
+        <!-- Right Section -->
+        <div class="col-span-1 flex justify-center align-center items-start">
+          <a href="{{ '/pengaduan' }}">
+            <div class="bg-white rounded-xl p-6 shadow-md w-full text-center  hover:shadow-lg transition-all transform hover:scale-105">
+              <span class="text-black font-bold  transition-colors">PENGADUAN</span>
+            </div>
+          </a>
+        </div>
       </div>
+    </div>
+    
+    
       
         
   </x-layout>

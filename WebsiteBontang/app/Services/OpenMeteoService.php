@@ -72,11 +72,12 @@ class OpenMeteoService
         // Menentukan deskripsi cuaca berdasarkan kode cuaca yang diberikan
         if (in_array($weatherCode, [0, 1])) {
             return 'Cerah'; // Cuaca cerah
-        } elseif (in_array($weatherCode, [2, 3, 45, 48])) {
+        } elseif (in_array($weatherCode, [2, 45, 48])) {
             return 'Mendung'; // Cuaca mendung
-        } elseif (in_array($weatherCode, [51, 61, 63, 65, 80, 81, 82, 95, 96, 99])) {
+        } elseif (in_array($weatherCode, [3, 51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 71, 73, 75, 77, 80, 81, 82, 85, 86, 95, 96, 99])) {
             return 'Hujan'; // Cuaca hujan
         }
+        
 
         return 'Tidak diketahui'; // Jika kode cuaca tidak dikenali
     }
