@@ -6,7 +6,7 @@
       <div class="font-[sans-serif] bg-white p-4 mx-auto max-w-[1400px]">      
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
               @foreach ($barang as $item) 
-              <div class="group overflow-hidden cursor-pointer relative">
+              <div class="group overflow-hidden cursor-pointer relative shadow-lg">
                   <a href="{{ route('belanja', $item->slug) }}">
                       <div class="bg-gray-100 aspect-[3/4] w-full overflow-hidden">
                           <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->nama }}"

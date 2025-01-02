@@ -14,33 +14,33 @@
         </div>
 
         <!-- Cuaca Harian -->
-        <div class="flex justify-between space-x-6 mb-8">
+        <div class="flex flex-wrap justify-between  ">
             <!-- Pagi -->
-            <div class="p-4 rounded-lg text-center w-1/5" style="background-image: url('{{ asset('images/pagi/' . strtolower($forecast['pagi']['description']) . '.png') }}'); background-size: cover; background-position: center; min-height: 300px;">
+            <div class="p-4 rounded-lg text-center w-1/3 lg:w-1/5 mb-8 " style="background-image: url('{{ asset('images/pagi/' . strtolower($forecast['pagi']['description']) . '.png') }}'); background-size: cover; background-position: center; min-height: 300px;">
                 <div class="text-2xl p-1 text-white mb-40">Pagi</div>
                 <div class="text-2xl font-bold text-white">{{ $forecast['pagi']['temperature'] }}°C</div>
                 <div class="text-lg text-white">{{ $forecast['pagi']['description'] }}</div>
             </div>
             <!-- Siang -->
-            <div class="p-4 rounded-lg  text-center w-1/5" style="background-image: url('{{ asset('images/siang/' . strtolower($forecast['siang']['description']) . '.png') }}'); background-size: cover; background-position: center; min-height: 300px;">
+            <div class="p-4 rounded-lg  text-center w-1/3 lg:w-1/5 mb-8" style="background-image: url('{{ asset('images/siang/' . strtolower($forecast['siang']['description']) . '.png') }}'); background-size: cover; background-position: center; min-height: 300px;">
                 <div class="text-2xl text-white mb-40 p-1">Siang</div>
                 <div class="text-2xl font-bold text-white">{{ $forecast['siang']['temperature'] }}°C</div>
                 <div class="text-lg text-white">{{ $forecast['siang']['description'] }}</div>
             </div>
             <!-- Sore -->
-            <div class="p-4 rounded-lg  text-center w-1/5" style="background-image: url('{{ asset('images/sore/' . strtolower($forecast['sore']['description']) . '.png') }}'); background-size: cover; background-position: center; min-height: 300px;">
+            <div class="p-4 rounded-lg  text-center w-1/3 lg:w-1/5 mb-8" style="background-image: url('{{ asset('images/sore/' . strtolower($forecast['sore']['description']) . '.png') }}'); background-size: cover; background-position: center; min-height: 300px;">
                 <div class="text-xl text-white mb-40 p-1">Sore</div>
                 <div class="text-2xl font-bold text-white">{{ $forecast['sore']['temperature'] }}°C</div>
                 <div class="text-lg text-white">{{ $forecast['sore']['description'] }}</div>
             </div>
             <!-- Malam -->
-            <div class="p-4 rounded-lg  text-center w-1/5" style="background-image: url('{{ asset('images/malam/' . strtolower($forecast['malam']['description']) . '.png') }}'); background-size: cover; background-position: center; min-height: 300px;">
+            <div class="p-4 rounded-lg  text-center w-1/3 lg:w-1/5 mb-8" style="background-image: url('{{ asset('images/malam/' . strtolower($forecast['malam']['description']) . '.png') }}'); background-size: cover; background-position: center; min-height: 300px;">
                 <div class="text-2xl mb-40 p-1 text-white">Malam</div>
                 <div class="text-2xl font-bold text-white">{{ $forecast['malam']['temperature'] }}°C</div>
                 <div class="text-lg text-white">{{ $forecast['malam']['description'] }}</div>
             </div>
             <!-- Dini Hari -->
-            <div class="p-4 rounded-lg  text-center w-1/5" style="background-image: url('{{ asset('images/diniHari/' . strtolower($forecast['diniHari']['description']) . '.png') }}'); background-size: cover; background-position: center; min-height: 300px;">
+            <div class="p-4 rounded-lg  text-center w-1/3 lg:w-1/5 mb-8" style="background-image: url('{{ asset('images/diniHari/' . strtolower($forecast['diniHari']['description']) . '.png') }}'); background-size: cover; background-position: center; min-height: 300px;">
                 <div class="text-2xl mb-40 p-1 text-white">Dini Hari</div>
                 <div class="text-2xl font-bold text-white">{{ $forecast['diniHari']['temperature'] }}°C</div>
                 <div class="text-lg text-white">{{ $forecast['diniHari']['description'] }}</div>
@@ -48,9 +48,9 @@
         </div>
 
         <!-- Perkiraan Cuaca Mendatang -->
-        <div class="flex justify-between space-x-6">
+        <div class="flex flex-wrap justify-between mb-8">
             @foreach ($forecastNextDays as $forecastDay)
-                <div class="p-4 rounded-lg shadow-md text-center bg-white w-1/3">
+                <div class="p-4 rounded-lg shadow-md text-center bg-white w-1/7 mb-8">
                     <div class="text-xl font-bold">{{ $forecastDay['date'] }}</div>
                     <div class="text-2xl font-bold">{{ $forecastDay['temperature'] }}°C</div>
                     <div class="text-lg text-gray-700">{{ $forecastDay['description'] }}</div>
