@@ -19,10 +19,10 @@ class CarouselController extends Controller
         $carousel = Carousel::orderBy('id', 'desc')->get();
         
         // Mengambil 6 berita terbaru, diurutkan berdasarkan ID
-        $berita = Berita::orderBy('id', 'asc')->take(6)->get();        
+        $berita = Berita::orderBy('id', 'desc')->take(6)->get();        
         
         // Mengambil 6 barang terbaru, diurutkan berdasarkan ID
-        $barang = Barang::orderBy('id', 'asc')->take(6)->get();        
+        $barang = Barang::orderBy('id', 'desc')->take(6)->get();        
         
         // Mengambil seluruh data wisata, diurutkan berdasarkan ID
         $pariwisata = Wisata::orderBy('id', 'asc')->get();        

@@ -16,34 +16,34 @@
         <!-- Cuaca Harian -->
         <div class="flex justify-between space-x-6 mb-8">
             <!-- Pagi -->
-            <div class="p-4 rounded-lg shadow-md text-center w-1/5" style="background-image: url('{{ asset('images/pagi/' . strtolower($forecast['pagi']['description']) . '.jpeg') }}'); background-size: cover; background-position: center; min-height: 400px;">
+            <div class="p-4 rounded-lg text-center w-1/5" style="background-image: url('{{ asset('images/pagi/' . strtolower($forecast['pagi']['description']) . '.png') }}'); background-size: cover; background-position: center; min-height: 300px;">
+                <div class="text-2xl p-1 text-white mb-40">Pagi</div>
                 <div class="text-2xl font-bold text-white">{{ $forecast['pagi']['temperature'] }}°C</div>
                 <div class="text-lg text-white">{{ $forecast['pagi']['description'] }}</div>
-                <div class="text-sm text-white">Pagi</div>
             </div>
             <!-- Siang -->
-            <div class="p-4 rounded-lg shadow-md text-center w-1/5" style="background-image: url('{{ asset('images/siang/' . strtolower($forecast['siang']['description']) . '.jpeg') }}'); background-size: cover; background-position: center; min-height: 400px;">
+            <div class="p-4 rounded-lg  text-center w-1/5" style="background-image: url('{{ asset('images/siang/' . strtolower($forecast['siang']['description']) . '.png') }}'); background-size: cover; background-position: center; min-height: 300px;">
+                <div class="text-2xl text-white mb-40 p-1">Siang</div>
                 <div class="text-2xl font-bold text-white">{{ $forecast['siang']['temperature'] }}°C</div>
                 <div class="text-lg text-white">{{ $forecast['siang']['description'] }}</div>
-                <div class="text-sm text-white">Siang</div>
             </div>
             <!-- Sore -->
-            <div class="p-4 rounded-lg shadow-md text-center w-1/5" style="background-image: url('{{ asset('images/sore/' . strtolower($forecast['sore']['description']) . '.jpeg') }}'); background-size: cover; background-position: center; min-height: 400px;">
+            <div class="p-4 rounded-lg  text-center w-1/5" style="background-image: url('{{ asset('images/sore/' . strtolower($forecast['sore']['description']) . '.png') }}'); background-size: cover; background-position: center; min-height: 300px;">
+                <div class="text-xl text-white mb-40 p-1">Sore</div>
                 <div class="text-2xl font-bold text-white">{{ $forecast['sore']['temperature'] }}°C</div>
                 <div class="text-lg text-white">{{ $forecast['sore']['description'] }}</div>
-                <div class="text-sm text-white">Sore</div>
             </div>
             <!-- Malam -->
-            <div class="p-4 rounded-lg shadow-md text-center w-1/5" style="background-image: url('{{ asset('images/malam/' . strtolower($forecast['malam']['description']) . '.jpeg') }}'); background-size: cover; background-position: center; min-height: 400px;">
+            <div class="p-4 rounded-lg  text-center w-1/5" style="background-image: url('{{ asset('images/malam/' . strtolower($forecast['malam']['description']) . '.png') }}'); background-size: cover; background-position: center; min-height: 300px;">
+                <div class="text-2xl mb-40 p-1 text-white">Malam</div>
                 <div class="text-2xl font-bold text-white">{{ $forecast['malam']['temperature'] }}°C</div>
                 <div class="text-lg text-white">{{ $forecast['malam']['description'] }}</div>
-                <div class="text-sm text-white">Malam</div>
             </div>
             <!-- Dini Hari -->
-            <div class="p-4 rounded-lg shadow-md text-center w-1/5" style="background-image: url('{{ asset('images/diniHari/' . strtolower($forecast['diniHari']['description']) . '.jpeg') }}'); background-size: cover; background-position: center; min-height: 400px;">
+            <div class="p-4 rounded-lg  text-center w-1/5" style="background-image: url('{{ asset('images/diniHari/' . strtolower($forecast['diniHari']['description']) . '.png') }}'); background-size: cover; background-position: center; min-height: 300px;">
+                <div class="text-2xl mb-40 p-1 text-white">Dini Hari</div>
                 <div class="text-2xl font-bold text-white">{{ $forecast['diniHari']['temperature'] }}°C</div>
                 <div class="text-lg text-white">{{ $forecast['diniHari']['description'] }}</div>
-                <div class="text-sm text-white">Dini Hari</div>
             </div>
         </div>
 

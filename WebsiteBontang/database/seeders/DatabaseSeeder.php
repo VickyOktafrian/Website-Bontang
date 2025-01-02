@@ -26,9 +26,9 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('123'),
             'role'=>'admin',
         ]);
-        carousel::factory()->count(5)->create();
+        // carousel::factory()->count(5)->create();
         // Berita::factory()->count(150)->create();
-        Wisata::factory()->count(10)->create();
-        Barang::factory()->count(10)->create();
+        // Wisata::factory()->count(10)->create();
+        // Barang::factory()->count(10)->create();
     }
 }

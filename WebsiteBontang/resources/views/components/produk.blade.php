@@ -5,7 +5,7 @@
     @foreach ($barang as $item)
     <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
         <a href="{{ route('belanja', $item->slug) }}">
-            <img src="{{ asset('storage/' . $item->thumbnail) }}"
+            <img src="{{ asset('storage/' . $item->gambar) }}"
                     alt="{{ $item->nama }}" class="h-80 w-72 object-cover rounded-t-xl" />
             <div class="px-4 py-3 w-72">
                 <p class="text-lg font-bold text-black truncate block capitalize">{{ $item->nama }}</p>

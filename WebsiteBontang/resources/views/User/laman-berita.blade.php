@@ -8,7 +8,7 @@
                 <div class="sm:col-span-5 justify-center items-center">
                     <a href="{{ route('berita', $berita->first()->slug) }}">
                         <div class="bg-cover text-center overflow-hidden"
-                            style="min-height: 300px; background-image: url('{{ asset('storage/' . $berita->first()->thumbnail)  }}')"
+                            style="min-height: 300px; background-image: url('{{ asset('storage/' . $berita->first()->thumbnail) }}')"
                             title="{{ $berita->first()->judul }}">
                         </div>
                     </a>
@@ -17,7 +17,7 @@
 
             {{-- Berita Lainnya --}}
             <div class="sm:col-span-7 grid grid-cols-2 lg:grid-cols-3 gap-5">
-                @foreach ($berita->skip(1)->take(6) as $item) {{-- skip(1)->take(6) is fine here for the next 6 items --}}
+                @foreach ($berita->skip(1)->take(6) as $item)
                     <div class="">
                         <a href="{{ route('berita', $item->slug) }}">
                             <div class="h-40 bg-cover text-center overflow-hidden"
@@ -40,11 +40,11 @@
         <div class="grid grid-cols-1 sm:grid-cols-12 gap-10">
 
             {{-- Berita Sidebar Kiri --}}
-            @if ($berita->skip(7)->first()) {{-- Skip first 7 items --}}
+            @if ($berita->skip(7)->first())
                 <div class="sm:col-span-6 lg:col-span-5">
                     <a href="{{ route('berita', $berita->skip(7)->first()->slug) }}">
                         <div class="h-56 bg-cover text-center overflow-hidden"
-                            style="background-image: url('{{ asset('storage/' .$berita->skip(7)->first()->thumbnail )}}')"
+                            style="background-image: url('{{ asset('storage/' . $berita->skip(7)->first()->thumbnail) }}')"
                             title="{{ $berita->skip(7)->first()->judul }}">
                         </div>
                     </a>
@@ -61,11 +61,11 @@
 
             {{-- Berita Sidebar Tengah --}}
             <div class="sm:col-span-6 lg:col-span-4">
-                @foreach ($berita->skip(8)->take(4) as $item) {{-- Skip 8 and take next 4 items --}}
+                @foreach ($berita->skip(8)->take(4) as $item)
                     <div class="flex items-start mb-3 pb-3">
                         <a href="{{ route('berita', $item->slug) }}" class="inline-block mr-3">
                             <div class="w-20 h-20 bg-cover bg-center"
-                                style="background-image:url('{{ asset('storage/' . $berita->thumbnail)  }}');">
+                                style="background-image:url('{{ asset('storage/' . $item->thumbnail) }}');">
                             </div>
                         </a>
                         <div class="text-sm">
@@ -80,11 +80,11 @@
             </div>
 
             {{-- Berita Sidebar Kanan --}}
-            @if ($berita->skip(12)->first()) {{-- Skip first 12 items --}}
+            @if ($berita->skip(12)->first())
                 <div class="sm:col-span-12 lg:col-span-3">
                     <a href="{{ route('berita', $berita->skip(12)->first()->slug) }}">
                         <div class="h-56 bg-cover text-center overflow-hidden"
-                            style="background-image: url('{{ asset('storage/' .$berita->skip(7)->first()->thumbnail )}}')"
+                            style="background-image: url('{{ asset('storage/' . $berita->skip(12)->first()->thumbnail) }}')"
                             title="{{ $berita->skip(12)->first()->judul }}">
                         </div>
                     </a>
@@ -102,72 +102,8 @@
         </div>
     </div>
 
-    {{-- Pagination --}}
-    <nav class="mb-4 flex justify-center space-x-4 mt-10" aria-label="Pagination">
-        
-
-        {{-- Previous Button --}}
-        @if ($berita->onFirstPage())
-            <span class="rounded-lg border border-sky-600 px-2 py-2 text-gray-700 cursor-not-allowed">
-                <span class="sr-only">Previous</span>
-                <svg class="mt-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                    aria-hidden="true">
-                    <path fill-rule="evenodd"
-                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                        clip-rule="evenodd">
-                    </path>
-                </svg>
-            </span>
-        @else
-            <a href="{{ $berita->previousPageUrl() }}" class="rounded-lg border border-sky-600 px-2 py-2 text-gray-700">
-                <span class="sr-only">Previous</span>
-                <svg class="mt-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                    aria-hidden="true">
-                    <path fill-rule="evenodd"
-                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                        clip-rule="evenodd">
-                    </path>
-                </svg>
-            </a>
-        @endif
-    
-        {{-- Page Number Links --}}
-        @foreach ($berita->getUrlRange(1, $berita->lastPage()) as $page => $url)
-            @if ($page == $berita->currentPage())
-                <span class="rounded-lg border border-sky-600 bg-sky-400 px-4 py-2 text-white">{{ $page }}</span>
-            @else
-                <a href="{{ $url }}" class="rounded-lg border border-sky-600 px-4 py-2 text-gray-700 hover:text-white hover:bg-sky-400 transition duration-200">
-                    {{ $page }}
-                </a>
-            @endif
-        @endforeach
-    
-        {{-- Next Button --}}
-        @if ($berita->hasMorePages())
-            <a href="{{ $berita->nextPageUrl() }}" class="rounded-lg border border-sky-600 px-2 py-2 text-gray-700">
-                <span class="sr-only">Next</span>
-                <svg class="mt-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                    aria-hidden="true">
-                    <path fill-rule="evenodd"
-                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                        clip-rule="evenodd">
-                    </path>
-                </svg>
-            </a>
-        @else
-            <span class="rounded-lg border border-sky-600 px-2 py-2 text-gray-700 cursor-not-allowed">
-                <span class="sr-only">Next</span>
-                <svg class="mt-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                    aria-hidden="true">
-                    <path fill-rule="evenodd"
-                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                        clip-rule="evenodd">
-                    </path>
-                </svg>
-            </span>
-        @endif
-    
-    </nav>
-    
-
+    <!-- Paginasi -->
+    <div class="mt-8">
+        {{ $berita->links() }}
+    </div>
 </x-layout>
